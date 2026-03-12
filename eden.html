@@ -1766,7 +1766,6 @@
         localStorage.setItem("roastery_cart", JSON.stringify(cart));
         updateCartUI();
       }
-
       function checkout() {
         if (cart.length === 0) {
           alert(
@@ -1777,7 +1776,6 @@
           return;
         }
 
-        // สร้างข้อความสรุปออเดอร์
         let orderText =
           "🛒 *NEW ORDER / สั่งซื้อเมล็ดกาแฟ* \n---------------------------\n";
         cart.forEach((item, index) => {
@@ -1788,7 +1786,6 @@
         orderText +=
           "---------------------------\nรบกวนแอดมินสรุปยอดโอน และขอ QR Code ด้วยครับ/ค่ะ ☕️✨";
 
-        // ฟังก์ชัน Copy ข้อความและเปิด Messenger
         navigator.clipboard
           .writeText(orderText)
           .then(() => {
@@ -1798,13 +1795,13 @@
                 : "✅ คัดลอกรายละเอียดออเดอร์แล้ว!\n\nระบบกำลังเปิด Inbox รบกวนลูกค้ากด 'วาง' (Paste) ข้อความในแชทเพื่อสั่งซื้อได้เลยครับ",
             );
 
-            // 👇 ใส่ Username ของเพจ Facebook คุณที่นี่ (ไม่ต้องมี @)
-            let fbPageId = "theroasterybyroj";
+            // 👇 อัปเดตไอดีเพจตรงนี้เป็น theroasterycr
+            let fbPageId = "theroasterycr";
             window.open(`https://m.me/${fbPageId}`, "_blank");
           })
           .catch((err) => {
-            // กรณีมือถือลูกค้าบล็อกการ Copy อัตโนมัติ ให้เปิด Inbox เฉยๆ
-            let fbPageId = "theroasterybyroj";
+            // 👇 อัปเดตไอดีเพจตรงนี้ด้วยเช่นกัน
+            let fbPageId = "theroasterycr";
             window.open(`https://m.me/${fbPageId}`, "_blank");
           });
       }
