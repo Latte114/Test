@@ -1638,10 +1638,15 @@
         </div>
         <button
           onclick="checkout()"
-          class="w-full bg-[#2C5220] text-[#B6E02A] py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-[#1A2810] transition-colors duration-300 rounded-full"
+          class="w-full bg-[#0084FF] text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-blue-700 transition-colors duration-300 rounded-full flex justify-center items-center gap-2"
         >
-          <span class="lang-en">Checkout to LINE</span
-          ><span class="lang-th">สั่งซื้อผ่าน LINE</span>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M12 2C6.477 2 2 6.145 2 11.259c0 2.92 1.517 5.516 3.868 7.221v3.275l3.54-1.942c1.465.398 3.003.606 4.592.606 5.523 0 10-4.145 10-9.259S17.523 2 12 2zm1.093 12.558l-2.824-3.013-5.503 3.013 6.052-6.425 2.894 3.013 5.43-3.013-6.049 6.425z"
+            />
+          </svg>
+          <span class="lang-en">Checkout via Inbox</span
+          ><span class="lang-th">สั่งซื้อผ่าน Inbox</span>
         </button>
       </div>
     </div>
@@ -1763,33 +1768,45 @@
       }
 
       function checkout() {
-        // 1. เพิ่ม Alert แจ้งเตือนกรณีลืมกดหยิบสินค้า
         if (cart.length === 0) {
           alert(
-            "ตะกร้าสินค้ายังว่างเปล่าอยู่ครับ กรุณากดปุ่ม Add to Cart ก่อนนะครับ ☕️",
+            currentLang === "en"
+              ? "Your cart is empty. Please add some coffee first ☕️"
+              : "ตะกร้าสินค้ายังว่างเปล่าอยู่ครับ กรุณากดปุ่ม Add to Cart ก่อนนะครับ ☕️",
           );
           return;
         }
 
+        // สร้างข้อความสรุปออเดอร์
         let orderText =
           "🛒 *NEW ORDER / สั่งซื้อเมล็ดกาแฟ* \n---------------------------\n";
         cart.forEach((item, index) => {
           orderText += `${index + 1}. ${item.name} - ฿${item.price}\n`;
         });
         orderText += "---------------------------\n";
-        orderText += `💰 *ยอดชำระทั้งหมด: ฿${total}*\n`;
+        orderText += `💰 *ยอดชำระทั้งหมด (Total): ฿${total}*\n`;
         orderText +=
           "---------------------------\nรบกวนแอดมินสรุปยอดโอน และขอ QR Code ด้วยครับ/ค่ะ ☕️✨";
 
-        let encodedText = encodeURIComponent(orderText);
+        // ฟังก์ชัน Copy ข้อความและเปิด Messenger
+        navigator.clipboard
+          .writeText(orderText)
+          .then(() => {
+            alert(
+              currentLang === "en"
+                ? "✅ Order details copied!\n\nWe will open Messenger now. Please 'PASTE' the message in the chat to order."
+                : "✅ คัดลอกรายละเอียดออเดอร์แล้ว!\n\nระบบกำลังเปิด Inbox รบกวนลูกค้ากด 'วาง' (Paste) ข้อความในแชทเพื่อสั่งซื้อได้เลยครับ",
+            );
 
-        // 👇 ตรวจสอบให้แน่ใจว่า LINE ID ของคุณถูกต้อง และต้องมีเครื่องหมาย @ นำหน้าเสมอ
-        let lineId = "@theroasterybyroj";
-
-        let lineUrl = `https://line.me/R/oaMessage/${lineId}/?${encodedText}`;
-
-        // 2. เปลี่ยนมาใช้ window.open เพื่อลดปัญหาเบราว์เซอร์บล็อก
-        window.open(lineUrl, "_blank");
+            // 👇 ใส่ Username ของเพจ Facebook คุณที่นี่ (ไม่ต้องมี @)
+            let fbPageId = "theroasterybyroj";
+            window.open(`https://m.me/${fbPageId}`, "_blank");
+          })
+          .catch((err) => {
+            // กรณีมือถือลูกค้าบล็อกการ Copy อัตโนมัติ ให้เปิด Inbox เฉยๆ
+            let fbPageId = "theroasterybyroj";
+            window.open(`https://m.me/${fbPageId}`, "_blank");
+          });
       }
     </script>
   </body>
