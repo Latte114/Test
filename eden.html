@@ -17,19 +17,6 @@
       rel="stylesheet"
     />
     <style>
-      /* ป้องกันการคลุมดำ (Highlight) ข้อความ */
-      body {
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10 and IE 11 */
-        user-select: none; /* Standard syntax */
-      }
-
-      /* ยกเว้นช่องค้นหา ให้ยังสามารถคลิกพิมพ์และคลุมดำคำค้นหาได้ */
-      input[type="search"] {
-        -webkit-user-select: auto;
-        -ms-user-select: auto;
-        user-select: auto;
-      }
       *,
       *::before,
       *::after {
@@ -57,11 +44,15 @@
         --red: #d44030;
       }
 
+      /* Anti-Copy CSS */
       body {
         font-family: "DM Sans", sans-serif;
         background: var(--off);
         color: var(--dark);
         overflow-x: hidden;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
 
       /* 🌐 LANGUAGE TOGGLE SYSTEM */
@@ -429,54 +420,11 @@
         width: 100%;
         animation: pkgFloat 5.5s ease-in-out infinite;
       }
+
+      /* 🌟 อัปเดต CSS สำหรับรูป eden_nobg.jpg ให้โดดเด่น 🌟 */
       .pkg img {
         width: 100%;
-        border-radius: 20px;
-        filter: drop-shadow(0 28px 70px rgba(44, 82, 32, 0.35));
-      }
-      .pkg::after {
-        content: "";
-        position: absolute;
-        bottom: -38px;
-        left: 15%;
-        right: 15%;
-        height: 44px;
-        background: radial-gradient(
-          ellipse,
-          rgba(44, 82, 32, 0.16) 0%,
-          transparent 70%
-        );
-        filter: blur(14px);
-        z-index: -1;
-      }
-
-      .weight-bubble {
-        position: absolute;
-        bottom: 18%;
-        right: -2%;
-        background: var(--yellow);
-        border-radius: 50%;
-        width: 80px;
-        height: 80px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        transform: rotate(10deg);
-      }
-      .weight-bubble .wnum {
-        font-family: "Fraunces", serif;
-        font-size: 24px;
-        font-weight: 700;
-        color: var(--dark);
-        line-height: 1;
-      }
-      .weight-bubble .wlbl {
-        font-size: 9px;
-        font-weight: 500;
-        letter-spacing: 0.1em;
-        color: var(--green-m);
+        filter: drop-shadow(0 28px 40px rgba(0, 0, 0, 0.25));
       }
 
       .hero-banner {
@@ -1033,6 +981,8 @@
         gap: 16px;
         justify-content: center;
         flex-wrap: wrap;
+        z-index: 10;
+        position: relative;
       }
       .btn-order {
         background: var(--lime);
@@ -1177,7 +1127,7 @@
         <img
           src="NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
           alt="The Roastery By Roj"
-          class="h-10 md:h-12"
+          class="h-10 md:h-12 brightness-0 invert opacity-90"
         />
       </a>
 
@@ -1239,15 +1189,10 @@
       <div class="blob blob-1"></div>
       <div class="blob blob-2"></div>
       <div class="blob blob-3"></div>
-
-      <span class="ff">🍎</span>
-      <span class="ff">🥝</span>
-      <span class="ff">🍋</span>
-      <span class="ff">🫐</span>
-      <span class="ff">🍍</span>
-      <span class="ff">🍊</span>
-      <span class="ff">🌿</span>
-
+      <span class="ff">🍎</span><span class="ff">🥝</span
+      ><span class="ff">🍋</span><span class="ff">🫐</span
+      ><span class="ff">🍍</span><span class="ff">🍊</span
+      ><span class="ff">🌿</span>
       <div class="hero-ghost">Eden</div>
 
       <div class="hero-text">
@@ -1275,15 +1220,7 @@
 
       <div class="hero-img">
         <div class="pkg">
-          <img
-            src="eden_nobg.jpg"
-            alt="Eden Coffee Bag"
-            class="rounded-[20px]"
-          />
-          <div class="weight-bubble">
-            <span class="wnum">200</span>
-            <span class="wlbl">gram</span>
-          </div>
+          <img src="eden_nobg.jpg" alt="Eden Coffee Bag" />
         </div>
       </div>
 
@@ -1561,9 +1498,8 @@
     </div>
 
     <section class="order" id="order">
-      <span class="of">🍎</span><span class="of">🥝</span>
-      <span class="of">🍋</span><span class="of">🫐</span>
-
+      <span class="of">🍎</span><span class="of">🥝</span
+      ><span class="of">🍋</span><span class="of">🫐</span>
       <div class="o-tag">
         <span class="lang-en">Order Now</span
         ><span class="lang-th">สั่งซื้อเลย</span>
@@ -1582,7 +1518,7 @@
           ><span class="lang-th">เพิ่มลงตะกร้า</span>
         </button>
         <a
-          href="https://www.facebook.com/theroasterybyroj"
+          href="https://www.facebook.com/theroasterycr"
           target="_blank"
           class="btn-order-g"
           ><span class="lang-en">Contact Us (FB)</span
@@ -1596,7 +1532,7 @@
         <img
           src="NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
           alt="The Roastery By Roj"
-          class="h-10 opacity-70"
+          class="h-8 md:h-10 brightness-0 invert opacity-70"
         />
       </a>
       <div class="f-copy">
@@ -1638,44 +1574,32 @@
         </div>
         <button
           onclick="checkout()"
-          class="w-full bg-[#0084FF] text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-blue-700 transition-colors duration-300 rounded-full flex justify-center items-center gap-2"
+          class="w-full bg-[#2C5220] text-[#B6E02A] py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-[#1A2810] transition-colors duration-300 rounded-full"
         >
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              d="M12 2C6.477 2 2 6.145 2 11.259c0 2.92 1.517 5.516 3.868 7.221v3.275l3.54-1.942c1.465.398 3.003.606 4.592.606 5.523 0 10-4.145 10-9.259S17.523 2 12 2zm1.093 12.558l-2.824-3.013-5.503 3.013 6.052-6.425 2.894 3.013 5.43-3.013-6.049 6.425z"
-            />
-          </svg>
-          <span class="lang-en">Checkout via Inbox</span
+          <span class="lang-en">Checkout to Inbox</span
           ><span class="lang-th">สั่งซื้อผ่าน Inbox</span>
         </button>
       </div>
     </div>
 
     <script>
-      // --- ระบบป้องกันการคัดลอก (Anti-Copy System) ---
-
-      // 1. ป้องกันการคลิกขวา (Right-Click)
+      // 🛡️ ANTI-COPY SYSTEM
       document.addEventListener("contextmenu", (event) =>
         event.preventDefault(),
       );
-
-      // 2. ป้องกันการลากรูปภาพออกไปเซฟ (Drag & Drop)
       document.addEventListener("dragstart", (event) => event.preventDefault());
-
-      // 3. ป้องกันการ Copy, Cut, Paste ผ่านเมนู
       document.addEventListener("copy", (event) => event.preventDefault());
       document.addEventListener("cut", (event) => event.preventDefault());
-
-      // 4. ป้องกันคีย์บอร์ดลัด (Ctrl+C, Ctrl+A, Ctrl+U, Cmd+C บน Mac)
       document.addEventListener("keydown", function (e) {
         if (e.ctrlKey || e.metaKey) {
-          const forbiddenKeys = ["c", "x", "a", "u", "s", "p"]; // c=copy, x=cut, a=select all, u=view source, s=save, p=print
+          const forbiddenKeys = ["c", "x", "a", "u", "s", "p"];
           if (forbiddenKeys.includes(e.key.toLowerCase())) {
             e.preventDefault();
           }
         }
       });
-      // 🌐 Language Logic (Shared across pages)
+
+      // 🌐 Language Logic
       let currentLang = localStorage.getItem("roastery_lang") || "en";
       document.body.classList.remove("lang-en", "lang-th");
       document.body.classList.add(`lang-${currentLang}`);
@@ -1702,7 +1626,7 @@
       );
       document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
 
-      // 🛒 CART LOGIC & LINE CHECKOUT
+      // 🛒 CART LOGIC & INBOX CHECKOUT
       document.addEventListener("DOMContentLoaded", updateCartUI);
       let cart = JSON.parse(localStorage.getItem("roastery_cart")) || [];
       let total = cart.reduce((sum, item) => sum + item.price, 0);
@@ -1766,23 +1690,16 @@
         localStorage.setItem("roastery_cart", JSON.stringify(cart));
         updateCartUI();
       }
-      function checkout() {
-        if (cart.length === 0) {
-          alert(
-            currentLang === "en"
-              ? "Your cart is empty. Please add some coffee first ☕️"
-              : "ตะกร้าสินค้ายังว่างเปล่าอยู่ครับ กรุณากดปุ่ม Add to Cart ก่อนนะครับ ☕️",
-          );
-          return;
-        }
 
+      function checkout() {
+        if (cart.length === 0) return;
         let orderText =
           "🛒 *NEW ORDER / สั่งซื้อเมล็ดกาแฟ* \n---------------------------\n";
         cart.forEach((item, index) => {
           orderText += `${index + 1}. ${item.name} - ฿${item.price}\n`;
         });
         orderText += "---------------------------\n";
-        orderText += `💰 *ยอดชำระทั้งหมด (Total): ฿${total}*\n`;
+        orderText += `💰 *ยอดชำระทั้งหมด: ฿${total}*\n`;
         orderText +=
           "---------------------------\nรบกวนแอดมินสรุปยอดโอน และขอ QR Code ด้วยครับ/ค่ะ ☕️✨";
 
@@ -1794,13 +1711,10 @@
                 ? "✅ Order details copied!\n\nWe will open Messenger now. Please 'PASTE' the message in the chat to order."
                 : "✅ คัดลอกรายละเอียดออเดอร์แล้ว!\n\nระบบกำลังเปิด Inbox รบกวนลูกค้ากด 'วาง' (Paste) ข้อความในแชทเพื่อสั่งซื้อได้เลยครับ",
             );
-
-            // 👇 อัปเดตไอดีเพจตรงนี้เป็น theroasterycr
             let fbPageId = "theroasterycr";
             window.open(`https://m.me/${fbPageId}`, "_blank");
           })
           .catch((err) => {
-            // 👇 อัปเดตไอดีเพจตรงนี้ด้วยเช่นกัน
             let fbPageId = "theroasterycr";
             window.open(`https://m.me/${fbPageId}`, "_blank");
           });
