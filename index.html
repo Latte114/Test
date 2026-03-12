@@ -811,7 +811,14 @@
 
       // LINE CHECKOUT
       function checkout() {
-        if (cart.length === 0) return;
+        // 1. เพิ่ม Alert แจ้งเตือนกรณีลืมกดหยิบสินค้า
+        if (cart.length === 0) {
+          alert(
+            "ตะกร้าสินค้ายังว่างเปล่าอยู่ครับ กรุณากดปุ่ม Add to Cart ก่อนนะครับ ☕️",
+          );
+          return;
+        }
+
         let orderText =
           "🛒 *NEW ORDER / สั่งซื้อเมล็ดกาแฟ* \n---------------------------\n";
         cart.forEach((item, index) => {
@@ -821,8 +828,16 @@
         orderText += `💰 *ยอดชำระทั้งหมด: ฿${total}*\n`;
         orderText +=
           "---------------------------\nรบกวนแอดมินสรุปยอดโอน และขอ QR Code ด้วยครับ/ค่ะ ☕️✨";
+
+        let encodedText = encodeURIComponent(orderText);
+
+        // 👇 ตรวจสอบให้แน่ใจว่า LINE ID ของคุณถูกต้อง และต้องมีเครื่องหมาย @ นำหน้าเสมอ
         let lineId = "@theroasterybyroj";
-        window.location.href = `https://line.me/R/oaMessage/${lineId}/?${encodeURIComponent(orderText)}`;
+
+        let lineUrl = `https://line.me/R/oaMessage/${lineId}/?${encodedText}`;
+
+        // 2. เปลี่ยนมาใช้ window.open เพื่อลดปัญหาเบราว์เซอร์บล็อก
+        window.open(lineUrl, "_blank");
       }
     </script>
   </body>
