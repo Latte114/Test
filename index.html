@@ -17,30 +17,28 @@
       rel="stylesheet"
     />
     <style>
-      /* ป้องกันการคลุมดำ (Highlight) ข้อความ */
-      body {
-        -webkit-user-select: none; /* Safari */
-        -ms-user-select: none; /* IE 10 and IE 11 */
-        user-select: none; /* Standard syntax */
-      }
-
-      /* ยกเว้นช่องค้นหา ให้ยังสามารถคลิกพิมพ์และคลุมดำคำค้นหาได้ */
-      input[type="search"] {
-        -webkit-user-select: auto;
-        -ms-user-select: auto;
-        user-select: auto;
-      }
       :root {
         --bg-cream: #f9f6f0;
         --coffee-dark: #1c140f;
         --accent-orange: #d35400;
       }
+
+      /* Anti-Copy CSS */
       body {
         font-family: "Prompt", sans-serif;
         background-color: var(--bg-cream);
         color: var(--coffee-dark);
         overflow-x: hidden;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
       }
+      input[type="search"] {
+        -webkit-user-select: auto;
+        -ms-user-select: auto;
+        user-select: auto;
+      }
+
       .font-serif {
         font-family: "Playfair Display", serif;
       }
@@ -163,7 +161,7 @@
 
           <div class="hidden md:flex items-center gap-2 text-black">
             <a
-              href="https://www.facebook.com/theroasterybyroj"
+              href="https://www.facebook.com/theroasterycr"
               target="_blank"
               class="w-6 h-6 bg-white/80 rounded-full flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
             >
@@ -181,26 +179,6 @@
               <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                 <path
                   d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 6.865a5.135 5.135 0 1 0 0 10.27 5.135 5.135 0 0 0 0-10.27zm0 8.468a3.333 3.333 0 1 1 0-6.666 3.333 3.333 0 0 1 0 6.666zm5.338-8.608a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"
-                />
-              </svg>
-            </a>
-            <a
-              href="#"
-              class="w-6 h-6 bg-white/80 rounded-full flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
-            >
-              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.915 2.171-2.915 1.023 0 1.518.769 1.518 1.688 0 1.029-.653 2.568-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C24 5.372 18.627 0 12 0z"
-                />
-              </svg>
-            </a>
-            <a
-              href="#"
-              class="w-6 h-6 bg-white/80 rounded-full flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
-            >
-              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-                <path
-                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
                 />
               </svg>
             </a>
@@ -398,16 +376,12 @@
               </span>
             </div>
             <div
-              class="img-hover-zoom aspect-[4/3] md:aspect-auto bg-[#f8f9f0] flex items-center justify-center p-10"
+              class="img-hover-zoom aspect-[4/3] md:aspect-auto bg-black flex items-center justify-center overflow-hidden relative"
             >
               <img
                 src="eden_nobg.jpg"
-                class="w-full max-w-[300px] object-cover drop-shadow-2xl rounded-2xl"
+                class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
                 alt="Wonder Eden"
-                onerror="
-                  this.src =
-                    'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=800'
-                "
               />
             </div>
           </div>
@@ -601,7 +575,7 @@
           </h3>
           <div class="flex flex-col gap-4 text-sm font-light text-gray-600">
             <a
-              href="https://www.facebook.com/theroasterybyroj"
+              href="https://www.facebook.com/theroasterycr"
               class="hover:text-orange-500 transition-colors"
               >Facebook</a
             >
@@ -645,13 +619,8 @@
         </div>
         <button
           onclick="checkout()"
-          class="w-full bg-[#0084FF] text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-blue-700 transition-colors duration-300 rounded-full flex justify-center items-center gap-2"
+          class="w-full bg-black text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-orange-600 transition-colors duration-300"
         >
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-            <path
-              d="M12 2C6.477 2 2 6.145 2 11.259c0 2.92 1.517 5.516 3.868 7.221v3.275l3.54-1.942c1.465.398 3.003.606 4.592.606 5.523 0 10-4.145 10-9.259S17.523 2 12 2zm1.093 12.558l-2.824-3.013-5.503 3.013 6.052-6.425 2.894 3.013 5.43-3.013-6.049 6.425z"
-            />
-          </svg>
           <span class="lang-en">Checkout via Inbox</span
           ><span class="lang-th">สั่งซื้อผ่าน Inbox</span>
         </button>
@@ -659,29 +628,22 @@
     </div>
 
     <script>
-      // --- ระบบป้องกันการคัดลอก (Anti-Copy System) ---
-
-      // 1. ป้องกันการคลิกขวา (Right-Click)
+      // 🛡️ ANTI-COPY SYSTEM
       document.addEventListener("contextmenu", (event) =>
         event.preventDefault(),
       );
-
-      // 2. ป้องกันการลากรูปภาพออกไปเซฟ (Drag & Drop)
       document.addEventListener("dragstart", (event) => event.preventDefault());
-
-      // 3. ป้องกันการ Copy, Cut, Paste ผ่านเมนู
       document.addEventListener("copy", (event) => event.preventDefault());
       document.addEventListener("cut", (event) => event.preventDefault());
-
-      // 4. ป้องกันคีย์บอร์ดลัด (Ctrl+C, Ctrl+A, Ctrl+U, Cmd+C บน Mac)
       document.addEventListener("keydown", function (e) {
         if (e.ctrlKey || e.metaKey) {
-          const forbiddenKeys = ["c", "x", "a", "u", "s", "p"]; // c=copy, x=cut, a=select all, u=view source, s=save, p=print
+          const forbiddenKeys = ["c", "x", "a", "u", "s", "p"];
           if (forbiddenKeys.includes(e.key.toLowerCase())) {
             e.preventDefault();
           }
         }
       });
+
       // 🌐 LANGUAGE LOGIC
       let currentLang = localStorage.getItem("roastery_lang") || "en";
       document.body.className = `selection:bg-orange-500 selection:text-white lang-${currentLang}`;
@@ -739,8 +701,6 @@
 
         window.addEventListener("scroll", () => {
           const nav = document.getElementById("navbar");
-          const logo = document.querySelector("nav img");
-
           if (window.scrollY > 50) {
             nav.classList.add("bg-black/90", "backdrop-blur-md", "shadow-sm");
             nav.classList.remove("mix-blend-difference");
@@ -818,19 +778,18 @@
         if (cart.length === 0) {
           alert(
             currentLang === "en"
-              ? "Your cart is empty. Please add some coffee first ☕️"
-              : "ตะกร้าสินค้ายังว่างเปล่าอยู่ครับ กรุณากดปุ่ม Add to Cart ก่อนนะครับ ☕️",
+              ? "Your cart is empty."
+              : "ตะกร้าสินค้ายังว่างเปล่าอยู่ครับ ☕️",
           );
           return;
         }
-
         let orderText =
           "🛒 *NEW ORDER / สั่งซื้อเมล็ดกาแฟ* \n---------------------------\n";
         cart.forEach((item, index) => {
           orderText += `${index + 1}. ${item.name} - ฿${item.price}\n`;
         });
         orderText += "---------------------------\n";
-        orderText += `💰 *ยอดชำระทั้งหมด (Total): ฿${total}*\n`;
+        orderText += `💰 *ยอดชำระทั้งหมด: ฿${total}*\n`;
         orderText +=
           "---------------------------\nรบกวนแอดมินสรุปยอดโอน และขอ QR Code ด้วยครับ/ค่ะ ☕️✨";
 
@@ -839,18 +798,13 @@
           .then(() => {
             alert(
               currentLang === "en"
-                ? "✅ Order details copied!\n\nWe will open Messenger now. Please 'PASTE' the message in the chat to order."
-                : "✅ คัดลอกรายละเอียดออเดอร์แล้ว!\n\nระบบกำลังเปิด Inbox รบกวนลูกค้ากด 'วาง' (Paste) ข้อความในแชทเพื่อสั่งซื้อได้เลยครับ",
+                ? "✅ Order details copied!\n\nPlease 'PASTE' the message in the chat to order."
+                : "✅ คัดลอกรายละเอียดออเดอร์แล้ว!\n\nรบกวนกด 'วาง' (Paste) ข้อความในช่องแชทเพื่อสั่งซื้อครับ",
             );
-
-            // 👇 อัปเดตไอดีเพจตรงนี้เป็น theroasterycr
-            let fbPageId = "theroasterycr";
-            window.open(`https://m.me/${fbPageId}`, "_blank");
+            window.open(`https://m.me/theroasterycr`, "_blank");
           })
           .catch((err) => {
-            // 👇 อัปเดตไอดีเพจตรงนี้ด้วยเช่นกัน
-            let fbPageId = "theroasterycr";
-            window.open(`https://m.me/${fbPageId}`, "_blank");
+            window.open(`https://m.me/theroasterycr`, "_blank");
           });
       }
     </script>
