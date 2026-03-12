@@ -1,0 +1,829 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Roastery By Roj</title>
+
+    <link
+      rel="icon"
+      href="NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+      type="image/png"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Prompt:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* ป้องกันการคลุมดำ (Highlight) ข้อความ */
+      body {
+        -webkit-user-select: none; /* Safari */
+        -ms-user-select: none; /* IE 10 and IE 11 */
+        user-select: none; /* Standard syntax */
+      }
+
+      /* ยกเว้นช่องค้นหา ให้ยังสามารถคลิกพิมพ์และคลุมดำคำค้นหาได้ */
+      input[type="search"] {
+        -webkit-user-select: auto;
+        -ms-user-select: auto;
+        user-select: auto;
+      }
+      :root {
+        --bg-cream: #f9f6f0;
+        --coffee-dark: #1c140f;
+        --accent-orange: #d35400;
+      }
+      body {
+        font-family: "Prompt", sans-serif;
+        background-color: var(--bg-cream);
+        color: var(--coffee-dark);
+        overflow-x: hidden;
+      }
+      .font-serif {
+        font-family: "Playfair Display", serif;
+      }
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .delay-100 {
+        transition-delay: 0.1s;
+      }
+      .delay-200 {
+        transition-delay: 0.2s;
+      }
+      @keyframes kenburns {
+        0% {
+          transform: scale(1);
+        }
+        100% {
+          transform: scale(1.15);
+        }
+      }
+      .animate-kenburns {
+        animation: kenburns 20s ease-out infinite alternate;
+      }
+      .img-hover-zoom {
+        overflow: hidden;
+      }
+      .img-hover-zoom img {
+        transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+      .group:hover .img-hover-zoom img {
+        transform: scale(1.08);
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-cream);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+      }
+
+      /* 🌐 LANGUAGE TOGGLE SYSTEM */
+      body.lang-en .lang-th {
+        display: none !important;
+      }
+      body.lang-th .lang-en {
+        display: none !important;
+      }
+      input[type="search"]::-webkit-search-cancel-button {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body class="selection:bg-orange-500 selection:text-white lang-en">
+    <nav
+      id="navbar"
+      class="fixed w-full z-50 transition-all duration-500 py-4 px-6 md:px-12 mix-blend-difference text-white"
+    >
+      <div class="flex justify-between items-center max-w-[1800px] mx-auto">
+        <a href="#" class="flex items-center">
+          <img
+            src="NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+            alt="The Roastery By Roj"
+            class="h-10 md:h-14 brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
+          />
+        </a>
+
+        <div
+          class="hidden lg:flex gap-10 text-xs font-semibold tracking-[0.2em] uppercase items-center"
+        >
+          <a href="#hero" class="hover:text-orange-500 transition-colors"
+            ><span class="lang-en">Home</span
+            ><span class="lang-th">หน้าแรก</span></a
+          >
+          <a href="#story" class="hover:text-orange-500 transition-colors"
+            ><span class="lang-en">Story</span
+            ><span class="lang-th">เรื่องราว</span></a
+          >
+          <a href="#recommended" class="hover:text-orange-500 transition-colors"
+            ><span class="lang-en">Beans</span
+            ><span class="lang-th">เมล็ดกาแฟ</span></a
+          >
+          <a href="#class" class="hover:text-orange-500 transition-colors"
+            ><span class="lang-en">Masterclass</span
+            ><span class="lang-th">คลาสเรียน</span></a
+          >
+        </div>
+
+        <div class="flex items-center gap-4 md:gap-5">
+          <div class="relative hidden sm:block mr-2">
+            <svg
+              class="w-3.5 h-3.5 absolute left-0 top-1 text-white/80"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+              ></path>
+            </svg>
+            <input
+              type="search"
+              id="searchInput"
+              onkeyup="searchProducts()"
+              placeholder="Search..."
+              class="bg-transparent border-b border-white/50 text-white placeholder-white/70 focus:outline-none focus:border-white text-xs py-1 pl-5 w-24 md:w-32 transition-all"
+            />
+          </div>
+
+          <div class="hidden md:flex items-center gap-2 text-black">
+            <a
+              href="https://www.facebook.com/theroasterybyroj"
+              target="_blank"
+              class="w-6 h-6 bg-white/80 rounded-full flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://www.instagram.com/theroasterybyroj"
+              target="_blank"
+              class="w-6 h-6 bg-white/80 rounded-[0.4rem] flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 6.865a5.135 5.135 0 1 0 0 10.27 5.135 5.135 0 0 0 0-10.27zm0 8.468a3.333 3.333 0 1 1 0-6.666 3.333 3.333 0 0 1 0 6.666zm5.338-8.608a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"
+                />
+              </svg>
+            </a>
+            <a
+              href="#"
+              class="w-6 h-6 bg-white/80 rounded-full flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.915 2.171-2.915 1.023 0 1.518.769 1.518 1.688 0 1.029-.653 2.568-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.401.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.354-.629-2.758-1.379l-.749 2.848c-.269 1.045-1.004 2.352-1.498 3.146 1.123.345 2.306.535 3.55.535 6.607 0 11.985-5.365 11.985-11.987C24 5.372 18.627 0 12 0z"
+                />
+              </svg>
+            </a>
+            <a
+              href="#"
+              class="w-6 h-6 bg-white/80 rounded-full flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <button
+            onclick="toggleLang()"
+            class="text-[10px] font-bold tracking-widest border border-white/50 px-3 py-1.5 rounded-full hover:bg-white hover:text-black transition-colors ml-2"
+          >
+            <span class="lang-en">THAI</span><span class="lang-th">ENG</span>
+          </button>
+
+          <button
+            onclick="toggleCart()"
+            class="flex items-center gap-2 text-xs font-bold tracking-[0.1em] uppercase hover:text-orange-500 transition-colors"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              ></path>
+            </svg>
+            <span class="hidden md:inline"
+              ><span class="lang-en">Cart</span
+              ><span class="lang-th">ตะกร้า</span></span
+            >
+            (<span id="cart-count">0</span>)
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <header
+      id="hero"
+      class="relative w-full h-screen overflow-hidden bg-black flex flex-col justify-center items-center text-center px-4"
+    >
+      <div class="absolute inset-0 z-0 overflow-hidden">
+        <img
+          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=2000"
+          class="w-full h-full object-cover animate-kenburns opacity-60"
+          alt="Roastery Farm"
+        />
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-[var(--bg-cream)]"
+        ></div>
+      </div>
+      <div class="relative z-10 flex flex-col items-center">
+        <p
+          class="reveal text-[10px] md:text-xs tracking-[0.4em] text-orange-400 font-bold uppercase mb-6"
+        >
+          <span class="lang-en">Welcome To</span
+          ><span class="lang-th">ยินดีต้อนรับสู่</span>
+        </p>
+        <h1
+          class="reveal delay-100 font-serif text-5xl md:text-7xl lg:text-9xl text-white leading-[1.1] mb-6"
+        >
+          The Roastery<br /><em class="font-light text-gray-300">by Roj</em>
+        </h1>
+        <p
+          class="reveal delay-200 max-w-xl text-sm md:text-base text-gray-300 font-light leading-relaxed mb-12"
+        >
+          <span class="lang-en"
+            >"Passing on sustainability through the story of coffee"<br />
+            From upstream farmers to the complexity of flavor in your cup.</span
+          >
+          <span class="lang-th"
+            >"ส่งต่อความยั่งยืน ผ่านเรื่องราวของกาแฟ" <br />
+            จากเกษตรกรต้นน้ำ สู่ความซับซ้อนของกลิ่นรสบนแก้วกาแฟ</span
+          >
+        </p>
+      </div>
+    </header>
+
+    <section
+      id="story"
+      class="py-24 px-6 md:px-12 max-w-[1200px] mx-auto text-center reveal"
+    >
+      <p
+        class="text-orange-600 text-[10px] font-bold tracking-[0.3em] uppercase mb-6"
+      >
+        <span class="lang-en">Since 2009 • Chiang Rai</span>
+        <span class="lang-th">ตั้งแต่ปี 2009 • เชียงราย</span>
+      </p>
+      <h2 class="font-serif text-3xl md:text-5xl mb-8 leading-tight">
+        <span class="lang-en"
+          >Sustainable Coffee <br /><em class="font-light text-gray-500"
+            >From Cherry to a Cup</em
+          ></span
+        >
+        <span class="lang-th"
+          >ส่งต่อความยั่งยืน <br /><em class="font-light text-gray-500"
+            >ผ่านเรื่องราวของกาแฟ</em
+          ></span
+        >
+      </h2>
+
+      <p
+        class="text-sm md:text-base text-gray-600 leading-relaxed font-light max-w-4xl mx-auto border-l-2 border-orange-500 pl-6 italic text-left md:text-center md:border-l-0 md:pl-0"
+      >
+        <span class="lang-en"
+          >"Since 2009, when we started The Roastery by Roj to elevate Thai
+          coffee to international specialty standards, we have been telling the
+          stories and dedication of upstream communities and coffee farmers,
+          translating them into complex flavors that everyone can experience in
+          their cup..."</span
+        >
+        <span class="lang-th"
+          >"ตลอดระยะเวลาตั้งแต่ปี ค.ศ. 2009 ที่เราได้เริ่มต้น The Roastery by
+          roj เพื่อพัฒนาเมล็ดกาแฟไทยให้มีคุณภาพเข้าสู่สากล (specialty coffee)
+          บอกเล่าเรื่องราวความตั้งใจของชุมชนต้นน้ำ เกษตรกรผู้ปลูกกาแฟ
+          และถ่ายทอดออกมาเป็นความซับซ้อนของกลิ่นรสที่ทุกคนสามารถสัมผัสได้บนแก้วกาแฟ
+          ..."</span
+        >
+      </p>
+    </section>
+
+    <section
+      id="recommended"
+      class="py-20 px-6 md:px-12 max-w-[1600px] mx-auto"
+    >
+      <div
+        class="flex flex-col md:flex-row justify-between items-end mb-16 reveal"
+      >
+        <div class="max-w-2xl">
+          <h2 class="font-serif text-4xl md:text-5xl mb-4">
+            <span class="lang-en">Experimental Beans.</span
+            ><span class="lang-th">กาแฟทดลองนวัตกรรม</span>
+          </h2>
+          <p class="text-sm text-gray-600 font-light leading-relaxed">
+            <span class="lang-en"
+              >Discover the secret of fermentation that creates new flavors for
+              Thai coffee.</span
+            >
+            <span class="lang-th"
+              >เรียนรู้การสร้างสรรค์กลิ่นรสในกาแฟไทยด้วยนวัตกรรม
+              แนะนำเมล็ดกาแฟไฮไลต์จากทางร้าน</span
+            >
+          </p>
+        </div>
+        <div
+          id="no-results"
+          class="hidden text-red-500 text-sm font-bold mt-4 md:mt-0"
+        >
+          ไม่พบสินค้าที่คุณค้นหา / No products found
+        </div>
+      </div>
+
+      <div
+        class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
+        id="product-grid"
+      >
+        <div
+          class="md:col-span-3 group relative rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100 reveal cursor-pointer product-item transition-all duration-300"
+          data-title="wonder eden kombucha"
+          onclick="window.location.href = 'eden.html'"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2">
+            <div class="p-10 md:p-16 flex flex-col justify-center">
+              <div
+                class="inline-flex items-center gap-2 bg-[#F0FAD0] px-3 py-1 rounded-full text-[10px] font-bold tracking-[0.2em] text-[#4A7C35] uppercase mb-6 w-max"
+              >
+                🌿 Signature Highlight
+              </div>
+              <p
+                class="text-[10px] text-gray-500 font-bold tracking-[0.2em] uppercase mb-2"
+              >
+                Kombucha Series
+              </p>
+              <h3 class="font-serif text-4xl md:text-6xl mb-4 text-[#2C5220]">
+                Wonder <em>Eden</em>
+              </h3>
+              <p class="text-sm text-gray-600 font-light mb-8 max-w-md">
+                <span class="lang-en"
+                  >Our finest Cartimor variety from 1,200 m.a.s.l. processed
+                  with selected SCOBY to create bright acidity and juicy sweet
+                  aftertaste.</span
+                >
+                <span class="lang-th"
+                  >เมล็ด Cartimor จากระดับความสูง 1,200 เมตร หมักด้วย SCOBY
+                  ให้รสชาติที่สว่างและหวานฉ่ำเป็นเอกลักษณ์</span
+                >
+              </p>
+              <span
+                class="text-xs font-bold tracking-[0.2em] uppercase text-orange-600 group-hover:text-[#4A7C35] transition-colors flex items-center gap-2"
+              >
+                <span class="lang-en">Discover Eden Product →</span
+                ><span class="lang-th">ดูรายละเอียด Eden →</span>
+              </span>
+            </div>
+            <div
+              class="img-hover-zoom aspect-[4/3] md:aspect-auto bg-[#f8f9f0] flex items-center justify-center p-10"
+            >
+              <img
+                src="eden_nobg.jpg"
+                class="w-full max-w-[300px] object-cover drop-shadow-2xl rounded-2xl"
+                alt="Wonder Eden"
+                onerror="
+                  this.src =
+                    'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&q=80&w=800'
+                "
+              />
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="group reveal product-item transition-all duration-300"
+          data-title="scientist series selected yeast"
+        >
+          <div
+            class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1580915411954-282cb1b0d780?auto=format&fit=crop&q=80&w=800"
+              class="w-full h-full object-cover"
+              alt="Scientist Series"
+            />
+          </div>
+          <p
+            class="text-[10px] text-orange-600 font-bold tracking-[0.2em] uppercase mb-2"
+          >
+            Selected Yeast
+          </p>
+          <h3
+            class="font-serif text-2xl mb-2 flex justify-between items-center"
+          >
+            Scientist Series
+            <button
+              onclick="addToCart('Scientist Series', 550)"
+              class="text-sm bg-black text-white px-4 py-1.5 rounded-full hover:bg-orange-600 transition-colors"
+            >
+              <span class="lang-en">Add</span><span class="lang-th">หยิบ</span>
+            </button>
+          </h3>
+        </div>
+
+        <div
+          class="group reveal delay-100 product-item transition-all duration-300"
+          data-title="scotlab yeast coffee"
+        >
+          <div
+            class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?auto=format&fit=crop&q=80&w=800"
+              class="w-full h-full object-cover"
+              alt="Scotlab Yeast"
+            />
+          </div>
+          <p
+            class="text-[10px] text-orange-600 font-bold tracking-[0.2em] uppercase mb-2"
+          >
+            Coffee Yeast
+          </p>
+          <h3
+            class="font-serif text-2xl mb-2 flex justify-between items-center"
+          >
+            Scotlab Yeast
+            <button
+              onclick="addToCart('Scotlab Yeast', 490)"
+              class="text-sm bg-black text-white px-4 py-1.5 rounded-full hover:bg-orange-600 transition-colors"
+            >
+              <span class="lang-en">Add</span><span class="lang-th">หยิบ</span>
+            </button>
+          </h3>
+        </div>
+
+        <div
+          class="group reveal delay-200 product-item transition-all duration-300"
+          data-title="fine robusta natural wild"
+        >
+          <div
+            class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800"
+              class="w-full h-full object-cover"
+              alt="Fine Robusta"
+            />
+          </div>
+          <p
+            class="text-[10px] text-orange-600 font-bold tracking-[0.2em] uppercase mb-2"
+          >
+            Natural Wild Yeast
+          </p>
+          <h3
+            class="font-serif text-2xl mb-2 flex justify-between items-center"
+          >
+            Fine Robusta
+            <button
+              onclick="addToCart('Fine Robusta', 390)"
+              class="text-sm bg-black text-white px-4 py-1.5 rounded-full hover:bg-orange-600 transition-colors"
+            >
+              <span class="lang-en">Add</span><span class="lang-th">หยิบ</span>
+            </button>
+          </h3>
+        </div>
+      </div>
+    </section>
+
+    <section
+      id="class"
+      class="bg-[var(--coffee-dark)] text-white py-32 px-6 md:px-12 mt-10"
+    >
+      <div
+        class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center"
+      >
+        <div class="lg:col-span-5 reveal">
+          <p
+            class="text-orange-500 text-[10px] font-bold tracking-[0.3em] uppercase mb-6"
+          >
+            Transformative Learning
+          </p>
+          <h2 class="font-serif text-5xl md:text-7xl mb-6 leading-tight">
+            Master<br /><em class="font-light text-gray-500">The Craft.</em>
+          </h2>
+          <div class="border-l border-white/20 pl-6 mb-10">
+            <p class="text-gray-300 text-sm font-light leading-relaxed">
+              <span class="lang-en"
+                >Learning isn't limited to the classroom.<br />Welcome to the
+                world of coffee, a space for hands-on experience.</span
+              >
+              <span class="lang-th"
+                >การเรียนรู้ที่ไม่ได้จำกัดอยู่แค่ในห้องเรียน<br />ยินดีต้อนรับสู่โลกของกาแฟ
+                พื้นที่ที่คุณจะได้ลงมือทำจริง</span
+              >
+            </p>
+          </div>
+        </div>
+        <div
+          class="lg:col-span-7 grid grid-cols-2 gap-4 md:gap-8 reveal delay-200"
+        >
+          <div
+            class="img-hover-zoom rounded-xl overflow-hidden aspect-[4/5] mt-12 md:mt-24 shadow-2xl"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800"
+              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              alt="Latte Art"
+            />
+          </div>
+          <div
+            class="img-hover-zoom rounded-xl overflow-hidden aspect-[4/5] shadow-2xl"
+          >
+            <img
+              src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=800"
+              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              alt="Brewing"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer
+      class="bg-[var(--bg-cream)] py-24 px-6 md:px-12 border-t border-black/10"
+    >
+      <div
+        class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12"
+      >
+        <div class="md:col-span-2">
+          <img
+            src="NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+            alt="The Roastery By Roj"
+            class="h-16 mb-6 opacity-90"
+          />
+          <p
+            class="text-sm text-gray-500 leading-relaxed max-w-sm mb-6 font-light"
+          >
+            Specialty Coffee @Chiang Rai<br /><span class="lang-en"
+              >Since 2009</span
+            ><span class="lang-th">ตั้งแต่ปี 2009</span>
+          </p>
+        </div>
+        <div>
+          <h3
+            class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6"
+          >
+            Visit Us
+          </h3>
+          <p class="text-sm text-gray-600 leading-loose mb-2 font-light">
+            Sanambin Rd, Tambon Rop Wiang,<br />Chiang Rai 57000, Thailand
+          </p>
+          <p class="text-sm text-gray-600 font-light">Tel: +66899280179</p>
+        </div>
+        <div>
+          <h3
+            class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6"
+          >
+            Connect
+          </h3>
+          <div class="flex flex-col gap-4 text-sm font-light text-gray-600">
+            <a
+              href="https://www.facebook.com/theroasterybyroj"
+              class="hover:text-orange-500 transition-colors"
+              >Facebook</a
+            >
+            <a
+              href="mailto:throastcoffee@gmail.com"
+              class="hover:text-orange-500 transition-colors"
+              >Email</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      id="cart-overlay"
+      onclick="toggleCart()"
+      class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[99] opacity-0 pointer-events-none transition-opacity duration-300"
+    ></div>
+    <div
+      id="cart-sidebar"
+      class="fixed top-0 right-0 w-full max-w-md h-full bg-white z-[100] transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col shadow-2xl"
+    >
+      <div
+        class="p-8 flex justify-between items-center border-b border-gray-100"
+      >
+        <h3 class="font-serif text-2xl">
+          <span class="lang-en">Your Cart</span
+          ><span class="lang-th">ตะกร้าสินค้า</span>
+        </h3>
+        <button
+          onclick="toggleCart()"
+          class="text-gray-400 hover:text-black text-3xl transition-colors"
+        >
+          &times;
+        </button>
+      </div>
+      <div id="cart-items" class="flex-1 p-8 overflow-y-auto bg-gray-50"></div>
+      <div class="p-8 bg-white border-t border-gray-100">
+        <div class="flex justify-between font-serif text-2xl mb-6">
+          <span>Total</span><span id="cart-total">฿0</span>
+        </div>
+        <button
+          onclick="checkout()"
+          class="w-full bg-black text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-orange-600 transition-colors duration-300"
+        >
+          <span class="lang-en">Checkout via LINE</span
+          ><span class="lang-th">สั่งซื้อผ่าน LINE</span>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // --- ระบบป้องกันการคัดลอก (Anti-Copy System) ---
+
+      // 1. ป้องกันการคลิกขวา (Right-Click)
+      document.addEventListener("contextmenu", (event) =>
+        event.preventDefault(),
+      );
+
+      // 2. ป้องกันการลากรูปภาพออกไปเซฟ (Drag & Drop)
+      document.addEventListener("dragstart", (event) => event.preventDefault());
+
+      // 3. ป้องกันการ Copy, Cut, Paste ผ่านเมนู
+      document.addEventListener("copy", (event) => event.preventDefault());
+      document.addEventListener("cut", (event) => event.preventDefault());
+
+      // 4. ป้องกันคีย์บอร์ดลัด (Ctrl+C, Ctrl+A, Ctrl+U, Cmd+C บน Mac)
+      document.addEventListener("keydown", function (e) {
+        if (e.ctrlKey || e.metaKey) {
+          const forbiddenKeys = ["c", "x", "a", "u", "s", "p"]; // c=copy, x=cut, a=select all, u=view source, s=save, p=print
+          if (forbiddenKeys.includes(e.key.toLowerCase())) {
+            e.preventDefault();
+          }
+        }
+      });
+      // 🌐 LANGUAGE LOGIC
+      let currentLang = localStorage.getItem("roastery_lang") || "en";
+      document.body.className = `selection:bg-orange-500 selection:text-white lang-${currentLang}`;
+
+      function toggleLang() {
+        currentLang = currentLang === "en" ? "th" : "en";
+        document.body.className = `selection:bg-orange-500 selection:text-white lang-${currentLang}`;
+        localStorage.setItem("roastery_lang", currentLang);
+        updateCartUI();
+      }
+
+      // 🔍 SEARCH LOGIC
+      function searchProducts() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let items = document.querySelectorAll(".product-item");
+        let found = false;
+
+        if (input.length > 0) {
+          document
+            .getElementById("recommended")
+            .scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        items.forEach((item) => {
+          let titleText = item.getAttribute("data-title").toLowerCase();
+          if (titleText.includes(input)) {
+            item.style.display = "";
+            found = true;
+          } else {
+            item.style.display = "none";
+          }
+        });
+
+        document.getElementById("no-results").style.display = found
+          ? "none"
+          : "block";
+      }
+
+      // ANIMATIONS & NAVBAR
+      document.addEventListener("DOMContentLoaded", () => {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("active");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.1 },
+        );
+        document
+          .querySelectorAll(".reveal")
+          .forEach((el) => observer.observe(el));
+
+        window.addEventListener("scroll", () => {
+          const nav = document.getElementById("navbar");
+          const logo = document.querySelector("nav img");
+
+          if (window.scrollY > 50) {
+            nav.classList.add("bg-black/90", "backdrop-blur-md", "shadow-sm");
+            nav.classList.remove("mix-blend-difference");
+          } else {
+            nav.classList.remove(
+              "bg-black/90",
+              "backdrop-blur-md",
+              "shadow-sm",
+            );
+            nav.classList.add("mix-blend-difference");
+          }
+        });
+        updateCartUI();
+      });
+
+      // 🛒 CART LOGIC
+      let cart = JSON.parse(localStorage.getItem("roastery_cart")) || [];
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+      function addToCart(name, price) {
+        cart.push({ name, price });
+        total += price;
+        localStorage.setItem("roastery_cart", JSON.stringify(cart));
+        updateCartUI();
+        if (
+          document
+            .getElementById("cart-sidebar")
+            .classList.contains("translate-x-full")
+        )
+          toggleCart();
+      }
+
+      function toggleCart() {
+        document
+          .getElementById("cart-sidebar")
+          .classList.toggle("translate-x-full");
+        document.getElementById("cart-overlay").classList.toggle("opacity-0");
+        document
+          .getElementById("cart-overlay")
+          .classList.toggle("pointer-events-none");
+      }
+
+      function updateCartUI() {
+        document.getElementById("cart-count").innerText = cart.length;
+        document.getElementById("cart-total").innerText = "฿" + total;
+        const cartItemsDiv = document.getElementById("cart-items");
+
+        if (cart.length === 0) {
+          cartItemsDiv.innerHTML = `<p class="text-gray-400 text-sm font-light text-center mt-10">${currentLang === "en" ? "Your cart is empty." : "ตะกร้าว่างเปล่า"}</p>`;
+          return;
+        }
+
+        cartItemsDiv.innerHTML = "";
+        cart.forEach((item, index) => {
+          cartItemsDiv.innerHTML += `
+                    <div class="flex justify-between items-center bg-white p-4 rounded-xl mb-3 shadow-sm border border-gray-100">
+                        <div><p class="font-bold text-sm tracking-wider uppercase">${item.name}</p></div>
+                        <div class="flex items-center gap-4">
+                            <p class="font-serif text-lg text-orange-600 font-bold">฿${item.price}</p>
+                            <button onclick="removeItem(${index})" class="text-red-500 text-xs hover:underline"><span class="lang-en">Remove</span><span class="lang-th">ลบ</span></button>
+                        </div>
+                    </div>
+                `;
+        });
+      }
+
+      function removeItem(index) {
+        total -= cart[index].price;
+        cart.splice(index, 1);
+        localStorage.setItem("roastery_cart", JSON.stringify(cart));
+        updateCartUI();
+      }
+
+      // LINE CHECKOUT
+      function checkout() {
+        if (cart.length === 0) return;
+        let orderText =
+          "🛒 *NEW ORDER / สั่งซื้อเมล็ดกาแฟ* \n---------------------------\n";
+        cart.forEach((item, index) => {
+          orderText += `${index + 1}. ${item.name} - ฿${item.price}\n`;
+        });
+        orderText += "---------------------------\n";
+        orderText += `💰 *ยอดชำระทั้งหมด: ฿${total}*\n`;
+        orderText +=
+          "---------------------------\nรบกวนแอดมินสรุปยอดโอน และขอ QR Code ด้วยครับ/ค่ะ ☕️✨";
+        let lineId = "@theroasterybyroj";
+        window.location.href = `https://line.me/R/oaMessage/${lineId}/?${encodeURIComponent(orderText)}`;
+      }
+    </script>
+  </body>
+</html>
