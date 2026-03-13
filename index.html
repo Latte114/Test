@@ -7,7 +7,7 @@
 
     <link
       rel="icon"
-      href="NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+      href="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
       type="image/png"
     />
 
@@ -57,17 +57,6 @@
       .delay-200 {
         transition-delay: 0.2s;
       }
-      @keyframes kenburns {
-        0% {
-          transform: scale(1);
-        }
-        100% {
-          transform: scale(1.15);
-        }
-      }
-      .animate-kenburns {
-        animation: kenburns 20s ease-out infinite alternate;
-      }
       .img-hover-zoom {
         overflow: hidden;
       }
@@ -108,7 +97,7 @@
       <div class="flex justify-between items-center max-w-[1800px] mx-auto">
         <a href="#" class="flex items-center">
           <img
-            src="NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+            src="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
             alt="The Roastery By Roj"
             class="h-10 md:h-14 brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
           />
@@ -190,7 +179,6 @@
           >
             <span class="lang-en">THAI</span><span class="lang-th">ENG</span>
           </button>
-
           <button
             onclick="toggleCart()"
             class="flex items-center gap-2 text-xs font-bold tracking-[0.1em] uppercase hover:text-orange-500 transition-colors"
@@ -223,16 +211,28 @@
       class="relative w-full h-screen overflow-hidden bg-black flex flex-col justify-center items-center text-center px-4"
     >
       <div class="absolute inset-0 z-0 overflow-hidden">
-        <img
-          src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=2000"
-          class="w-full h-full object-cover animate-kenburns opacity-60"
-          alt="Roastery Farm"
-        />
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          class="w-full h-full object-cover opacity-60"
+        >
+          <source
+            src="images/110 - The Roastery by Roj กว่าจะมาเป็นกาแฟพิเศษ EP.1.mp4"
+            type="video/mp4"
+          />
+        </video>
         <div
-          class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-[var(--bg-cream)]"
+          class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/20 to-[var(--bg-cream)]"
         ></div>
       </div>
       <div class="relative z-10 flex flex-col items-center">
+        <img
+          src="images/0f93c7590ea0d6cd8561eda5da12465d_edited.png"
+          class="h-8 mb-4 opacity-70 invert"
+          alt="Coffee Bean"
+        />
         <p
           class="reveal text-[10px] md:text-xs tracking-[0.4em] text-orange-400 font-bold uppercase mb-6"
         >
@@ -259,47 +259,75 @@
       </div>
     </header>
 
-    <section
-      id="story"
-      class="py-24 px-6 md:px-12 max-w-[1200px] mx-auto text-center reveal"
-    >
-      <p
-        class="text-orange-600 text-[10px] font-bold tracking-[0.3em] uppercase mb-6"
-      >
-        <span class="lang-en">Since 2009 • Chiang Rai</span>
-        <span class="lang-th">ตั้งแต่ปี 2009 • เชียงราย</span>
-      </p>
-      <h2 class="font-serif text-3xl md:text-5xl mb-8 leading-tight">
-        <span class="lang-en"
-          >Sustainable Coffee <br /><em class="font-light text-gray-500"
-            >From Cherry to a Cup</em
-          ></span
+    <section id="story" class="py-24 px-6 md:px-12 max-w-[1400px] mx-auto">
+      <div class="text-center reveal mb-16">
+        <p
+          class="text-orange-600 text-[10px] font-bold tracking-[0.3em] uppercase mb-4"
         >
-        <span class="lang-th"
-          >ส่งต่อความยั่งยืน <br /><em class="font-light text-gray-500"
-            >ผ่านเรื่องราวของกาแฟ</em
-          ></span
+          <span class="lang-en">Since 2009 • Chiang Rai</span
+          ><span class="lang-th">ตั้งแต่ปี 2009 • เชียงราย</span>
+        </p>
+        <h2 class="font-serif text-4xl md:text-5xl mb-8 leading-tight">
+          <span class="lang-en"
+            >Sustainable Coffee <br /><em class="font-light text-gray-500"
+              >From Cherry to a Cup</em
+            ></span
+          >
+          <span class="lang-th"
+            >ส่งต่อความยั่งยืน <br /><em class="font-light text-gray-500"
+              >ผ่านเรื่องราวของกาแฟ</em
+            ></span
+          >
+        </h2>
+        <p
+          class="text-sm md:text-base text-gray-600 leading-relaxed font-light max-w-4xl mx-auto border-l-2 border-orange-500 pl-6 italic text-left md:text-center md:border-l-0 md:pl-0"
         >
-      </h2>
+          <span class="lang-en"
+            >"Since 2009, when we started The Roastery by Roj to elevate Thai
+            coffee to international specialty standards, we have been telling
+            the stories and dedication of upstream communities and coffee
+            farmers, translating them into complex flavors that everyone can
+            experience in their cup..."</span
+          >
+          <span class="lang-th"
+            >"ตลอดระยะเวลาตั้งแต่ปี ค.ศ. 2009 ที่เราได้เริ่มต้น The Roastery by
+            roj เพื่อพัฒนาเมล็ดกาแฟไทยให้มีคุณภาพเข้าสู่สากล (specialty coffee)
+            บอกเล่าเรื่องราวความตั้งใจของชุมชนต้นน้ำ เกษตรกรผู้ปลูกกาแฟ
+            และถ่ายทอดออกมาเป็นความซับซ้อนของกลิ่นรสที่ทุกคนสามารถสัมผัสได้บนแก้วกาแฟ
+            ..."</span
+          >
+        </p>
+      </div>
 
-      <p
-        class="text-sm md:text-base text-gray-600 leading-relaxed font-light max-w-4xl mx-auto border-l-2 border-orange-500 pl-6 italic text-left md:text-center md:border-l-0 md:pl-0"
-      >
-        <span class="lang-en"
-          >"Since 2009, when we started The Roastery by Roj to elevate Thai
-          coffee to international specialty standards, we have been telling the
-          stories and dedication of upstream communities and coffee farmers,
-          translating them into complex flavors that everyone can experience in
-          their cup..."</span
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 reveal delay-100">
+        <div
+          class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden shadow-lg"
         >
-        <span class="lang-th"
-          >"ตลอดระยะเวลาตั้งแต่ปี ค.ศ. 2009 ที่เราได้เริ่มต้น The Roastery by
-          roj เพื่อพัฒนาเมล็ดกาแฟไทยให้มีคุณภาพเข้าสู่สากล (specialty coffee)
-          บอกเล่าเรื่องราวความตั้งใจของชุมชนต้นน้ำ เกษตรกรผู้ปลูกกาแฟ
-          และถ่ายทอดออกมาเป็นความซับซ้อนของกลิ่นรสที่ทุกคนสามารถสัมผัสได้บนแก้วกาแฟ
-          ..."</span
+          <img
+            src="images/152450808_3577440555686997_2500981461873813221_n.jpg"
+            class="w-full h-full object-cover"
+            alt="Doi Pangkhon"
+          />
+        </div>
+        <div
+          class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden shadow-lg"
         >
-      </p>
+          <img
+            src="images/152975779_3577443022353417_5151064357933614335_n.jpg"
+            class="w-full h-full object-cover"
+            alt="Harvesting Coffee"
+          />
+        </div>
+        <div
+          class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden shadow-lg"
+        >
+          <img
+            src="images/150421079_3577443079020078_8595628138702823195_n.jpg"
+            class="w-full h-full object-cover"
+            alt="Coffee Farmers"
+          />
+        </div>
+      </div>
     </section>
 
     <section
@@ -310,9 +338,16 @@
         class="flex flex-col md:flex-row justify-between items-end mb-16 reveal"
       >
         <div class="max-w-2xl">
-          <h2 class="font-serif text-4xl md:text-5xl mb-4">
+          <h2
+            class="font-serif text-4xl md:text-5xl mb-4 flex items-center gap-4"
+          >
             <span class="lang-en">Experimental Beans.</span
             ><span class="lang-th">กาแฟทดลองนวัตกรรม</span>
+            <img
+              src="images/0f93c7590ea0d6cd8561eda5da12465d_edited.png"
+              class="h-6 opacity-30"
+              alt=""
+            />
           </h2>
           <p class="text-sm text-gray-600 font-light leading-relaxed">
             <span class="lang-en"
@@ -376,11 +411,11 @@
               </span>
             </div>
             <div
-              class="img-hover-zoom aspect-[4/3] md:aspect-auto bg-black flex items-center justify-center overflow-hidden relative"
+              class="img-hover-zoom aspect-[4/3] md:aspect-auto bg-[#F9F6F0] flex items-center justify-center p-10 overflow-hidden relative"
             >
               <img
-                src="eden_nobg.jpg"
-                class="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
+                src="images/eden_nobg.jpg"
+                class="w-full max-w-[320px] object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-700"
                 alt="Wonder Eden"
               />
             </div>
@@ -392,7 +427,7 @@
           data-title="scientist series selected yeast"
         >
           <div
-            class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6"
+            class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6 shadow-sm"
           >
             <img
               src="https://images.unsplash.com/photo-1580915411954-282cb1b0d780?auto=format&fit=crop&q=80&w=800"
@@ -423,7 +458,7 @@
           data-title="scotlab yeast coffee"
         >
           <div
-            class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6"
+            class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6 shadow-sm"
           >
             <img
               src="https://images.unsplash.com/photo-1611854779393-1b2da9d400fe?auto=format&fit=crop&q=80&w=800"
@@ -454,7 +489,7 @@
           data-title="fine robusta natural wild"
         >
           <div
-            class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6"
+            class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6 shadow-sm"
           >
             <img
               src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800"
@@ -484,16 +519,21 @@
 
     <section
       id="class"
-      class="bg-[var(--coffee-dark)] text-white py-32 px-6 md:px-12 mt-10"
+      class="bg-[var(--coffee-dark)] text-white py-32 px-6 md:px-12 mt-10 relative overflow-hidden"
     >
+      <img
+        src="images/162716614_211843944053574_7895481718759262983_n.png"
+        class="absolute -right-20 -top-20 h-96 opacity-5"
+        alt=""
+      />
       <div
-        class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center"
+        class="max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10"
       >
         <div class="lg:col-span-5 reveal">
           <p
             class="text-orange-500 text-[10px] font-bold tracking-[0.3em] uppercase mb-6"
           >
-            Transformative Learning
+            Sensory & Brewing Class
           </p>
           <h2 class="font-serif text-5xl md:text-7xl mb-6 leading-tight">
             Master<br /><em class="font-light text-gray-500">The Craft.</em>
@@ -501,12 +541,13 @@
           <div class="border-l border-white/20 pl-6 mb-10">
             <p class="text-gray-300 text-sm font-light leading-relaxed">
               <span class="lang-en"
-                >Learning isn't limited to the classroom.<br />Welcome to the
-                world of coffee, a space for hands-on experience.</span
+                >Welcome to the world of coffee. Explore Scentone aroma
+                standards and master the art of brewing with our
+                specialists.</span
               >
               <span class="lang-th"
-                >การเรียนรู้ที่ไม่ได้จำกัดอยู่แค่ในห้องเรียน<br />ยินดีต้อนรับสู่โลกของกาแฟ
-                พื้นที่ที่คุณจะได้ลงมือทำจริง</span
+                >พื้นที่ที่คุณจะได้ลงมือปฏิบัติจริง ฝึกฝนประสาทสัมผัสการดมกลิ่น
+                และศิลปะการสกัดกาแฟด้วยอุปกรณ์หลากหลาย</span
               >
             </p>
           </div>
@@ -514,23 +555,45 @@
         <div
           class="lg:col-span-7 grid grid-cols-2 gap-4 md:gap-8 reveal delay-200"
         >
-          <div
-            class="img-hover-zoom rounded-xl overflow-hidden aspect-[4/5] mt-12 md:mt-24 shadow-2xl"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1497935586351-b67a49e012bf?auto=format&fit=crop&q=80&w=800"
-              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-              alt="Latte Art"
-            />
+          <div class="flex flex-col gap-4 md:gap-8">
+            <div
+              class="img-hover-zoom rounded-xl overflow-hidden aspect-square shadow-2xl"
+            >
+              <img
+                src="images/116682847_3030225650408493_7489544081053300610_n.jpeg"
+                class="w-full h-full object-cover"
+                alt="Scentone Cards"
+              />
+            </div>
+            <div
+              class="img-hover-zoom rounded-xl overflow-hidden aspect-[4/3] shadow-2xl"
+            >
+              <img
+                src="images/169331619_3698686850229033_1426711306862411502_n.jpeg"
+                class="w-full h-full object-cover object-top"
+                alt="Siphon Brewing"
+              />
+            </div>
           </div>
-          <div
-            class="img-hover-zoom rounded-xl overflow-hidden aspect-[4/5] shadow-2xl"
-          >
-            <img
-              src="https://images.unsplash.com/photo-1511920170033-f8396924c348?auto=format&fit=crop&q=80&w=800"
-              class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-              alt="Brewing"
-            />
+          <div class="flex flex-col gap-4 md:gap-8 mt-12 md:mt-24">
+            <div
+              class="img-hover-zoom rounded-xl overflow-hidden aspect-[4/3] shadow-2xl"
+            >
+              <img
+                src="images/162713670_3653990334698685_7946006239399448633_n.jpeg"
+                class="w-full h-full object-cover"
+                alt="Aroma Training"
+              />
+            </div>
+            <div
+              class="img-hover-zoom rounded-xl overflow-hidden aspect-square shadow-2xl"
+            >
+              <img
+                src="images/162227558_3652963454801373_1382731975796775638_n.jpeg"
+                class="w-full h-full object-cover"
+                alt="Coffee Cupping"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -544,7 +607,7 @@
       >
         <div class="md:col-span-2">
           <img
-            src="NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+            src="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
             alt="The Roastery By Roj"
             class="h-16 mb-6 opacity-90"
           />
@@ -619,16 +682,21 @@
         </div>
         <button
           onclick="checkout()"
-          class="w-full bg-black text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-orange-600 transition-colors duration-300"
+          class="w-full bg-[#00B900] text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-green-700 transition-colors duration-300 rounded-full flex justify-center items-center gap-2"
         >
-          <span class="lang-en">Checkout via Inbox</span
-          ><span class="lang-th">สั่งซื้อผ่าน Inbox</span>
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 3.938 8.875 9.172 9.585.39.083.921.258 1.054.593.12.298.038.756-.057 1.058l-.348 1.135c-.106.335-.506 1.632 1.43 0 1.935-1.633 10.42-6.14 10.749-11.371z"
+            />
+          </svg>
+          <span class="lang-en">Checkout via LINE</span
+          ><span class="lang-th">สั่งซื้อผ่าน LINE</span>
         </button>
       </div>
     </div>
 
     <script>
-      // 🛡️ ANTI-COPY SYSTEM
+      // ANTI-COPY SYSTEM
       document.addEventListener("contextmenu", (event) =>
         event.preventDefault(),
       );
@@ -644,10 +712,9 @@
         }
       });
 
-      // 🌐 LANGUAGE LOGIC
+      // LANGUAGE LOGIC
       let currentLang = localStorage.getItem("roastery_lang") || "en";
       document.body.className = `selection:bg-orange-500 selection:text-white lang-${currentLang}`;
-
       function toggleLang() {
         currentLang = currentLang === "en" ? "th" : "en";
         document.body.className = `selection:bg-orange-500 selection:text-white lang-${currentLang}`;
@@ -655,7 +722,7 @@
         updateCartUI();
       }
 
-      // 🔍 SEARCH LOGIC
+      // SEARCH LOGIC
       function searchProducts() {
         let input = document.getElementById("searchInput").value.toLowerCase();
         let items = document.querySelectorAll(".product-item");
@@ -676,7 +743,6 @@
             item.style.display = "none";
           }
         });
-
         document.getElementById("no-results").style.display = found
           ? "none"
           : "block";
@@ -716,7 +782,7 @@
         updateCartUI();
       });
 
-      // 🛒 CART LOGIC
+      // CART LOGIC
       let cart = JSON.parse(localStorage.getItem("roastery_cart")) || [];
       let total = cart.reduce((sum, item) => sum + item.price, 0);
 
@@ -747,12 +813,10 @@
         document.getElementById("cart-count").innerText = cart.length;
         document.getElementById("cart-total").innerText = "฿" + total;
         const cartItemsDiv = document.getElementById("cart-items");
-
         if (cart.length === 0) {
           cartItemsDiv.innerHTML = `<p class="text-gray-400 text-sm font-light text-center mt-10">${currentLang === "en" ? "Your cart is empty." : "ตะกร้าว่างเปล่า"}</p>`;
           return;
         }
-
         cartItemsDiv.innerHTML = "";
         cart.forEach((item, index) => {
           cartItemsDiv.innerHTML += `
@@ -762,8 +826,7 @@
                             <p class="font-serif text-lg text-orange-600 font-bold">฿${item.price}</p>
                             <button onclick="removeItem(${index})" class="text-red-500 text-xs hover:underline"><span class="lang-en">Remove</span><span class="lang-th">ลบ</span></button>
                         </div>
-                    </div>
-                `;
+                    </div>`;
         });
       }
 
@@ -783,6 +846,8 @@
           );
           return;
         }
+
+        // 1. สร้างข้อความสรุปออเดอร์
         let orderText =
           "🛒 *NEW ORDER / สั่งซื้อเมล็ดกาแฟ* \n---------------------------\n";
         cart.forEach((item, index) => {
@@ -793,19 +858,13 @@
         orderText +=
           "---------------------------\nรบกวนแอดมินสรุปยอดโอน และขอ QR Code ด้วยครับ/ค่ะ ☕️✨";
 
-        navigator.clipboard
-          .writeText(orderText)
-          .then(() => {
-            alert(
-              currentLang === "en"
-                ? "✅ Order details copied!\n\nPlease 'PASTE' the message in the chat to order."
-                : "✅ คัดลอกรายละเอียดออเดอร์แล้ว!\n\nรบกวนกด 'วาง' (Paste) ข้อความในช่องแชทเพื่อสั่งซื้อครับ",
-            );
-            window.open(`https://m.me/theroasterycr`, "_blank");
-          })
-          .catch((err) => {
-            window.open(`https://m.me/theroasterycr`, "_blank");
-          });
+        // 2. เข้ารหัสข้อความและส่งเข้า LINE OA อัตโนมัติ
+        let encodedText = encodeURIComponent(orderText);
+        let lineId = "@024hpqkw";
+        let lineUrl = `https://line.me/R/oaMessage/${lineId}/?${encodedText}`;
+
+        // 3. เปิดหน้า LINE
+        window.open(lineUrl, "_blank");
       }
     </script>
   </body>
