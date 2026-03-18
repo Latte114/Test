@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visual Builder - The Roastery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Prompt", sans-serif;
+        background-color: #f3f4f6;
+      }
+      .builder-canvas {
+        min-height: 800px;
+        background-color: white;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      }
+      .block-item {
+        position: relative;
+        border: 2px border-transparent;
+        transition: all 0.2s;
+      }
+      .block-item:hover {
+        border: 2px dashed #d35400;
+      }
+      .block-controls {
+        display: none;
+        position: absolute;
+        top: -16px;
+        right: 8px;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        padding: 4px;
+        z-index: 10;
+      }
+      .block-item:hover .block-controls {
+        display: flex;
+        gap: 4px;
+      }
+    </style>
+  </head>
+  <body class="flex h-screen overflow-hidden text-gray-800">
+
+    <!-- Sidebar -->
+    <aside class="w-80 bg-white border-r border-gray-200 flex flex-col h-full shadow-md z-20">
+      <div class="p-6 border-b border-gray-100 flex justify-between items-center">
+        <div>
+          <h1 class="text-xl font-bold text-[#1c140f]">🎨 Page Builder</h1>
+          <p id="productNameLabel" class="text-sm text-gray-500 mt-1">Loading...</p>
+        </div>
+      </div>
+      
+      <div class="p-6 flex-1 overflow-y-auto flex flex-col gap-4">
+        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Add Elements</h3>
+        
+        <button onclick="addBlock('header')" class="flex items-center gap-3 p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-orange-500 hover:text-orange-600 transition-colors text-left group">
+          <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:bg-orange-100">
+            <span class="font-serif font-bold text-lg">H</span>
+          </div>
+          <div>
+            <p class="font-bold text-sm text-[#1c140f] group-hover:text-orange-600">Heading</p>
+            <p class="text-[10px] text-gray-500">Add a large title</p>
+          </div>
+        </button>
+
+        <button onclick="addBlock('text')" class="flex items-center gap-3 p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-orange-500 hover:text-orange-600 transition-colors text-left group">
+          <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:bg-orange-100">
+            <span class="font-serif font-bold text-lg">T</span>
+          </div>
+          <div>
+            <p class="font-bold text-sm text-[#1c140f] group-hover:text-orange-600">Paragraph</p>
+            <p class="text-[10px] text-gray-500">Add detailed text</p>
+          </div>
+        </button>
+
+        <button onclick="addBlock('image')" class="flex items-center gap-3 p-4 bg-gray-50 border border-gray-200 rounded-xl hover:border-orange-500 hover:text-orange-600 transition-colors text-left group">
+          <div class="w-10 h-10 bg-white rounded-lg flex items-center justify-center shadow-sm group-hover:bg-orange-100">
+            <span class="text-lg">📸</span>
+          </div>
+          <div>
+            <p class="font-bold text-sm text-[#1c140f] group-hover:text-orange-600">Image</p>
+            <p class="text-[10px] text-gray-500">Insert an image block</p>
+          </div>
+        </button>
+      </div>
+
+      <div class="p-6 border-t border-gray-100 flex gap-2">
+        <button onclick="saveLayout()" id="saveBtn" class="flex-1 bg-black hover:bg-orange-600 text-white font-bold py-3 rounded-xl transition-colors shadow-md">
+          Save Layout
+        </button>
+        <button onclick="window.close()" class="px-4 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold py-3 rounded-xl transition-colors">
+          Close
+        </button>
+      </div>
+    </aside>
+
+    <!-- Canvas -->
+    <main class="flex-1 overflow-y-auto bg-gray-100 p-8 flex justify-center">
+      <div id="canvas" class="builder-canvas w-full max-w-[800px] flex flex-col gap-4 p-8 relative rounded-xl">
+        <!-- Blocks will be injected here -->
+        <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-50 text-gray-400 font-medium" id="emptyState">
+          Drag & Drop or click elements to add them here.
+        </div>
+      </div>
+    </main>
+
+    <!-- Block Editor Modal -->
+    <div id="editorModal" class="hidden fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
+      <div class="bg-white rounded-2xl shadow-2xl p-6 w-full max-w-lg">
+        <h2 class="text-xl font-bold mb-4">Edit Block</h2>
+        <input type="hidden" id="editingIndex" />
+        
+        <div id="textEditor" class="hidden flex-col gap-3">
+          <label class="text-xs font-bold text-gray-700 uppercase">Text Content / Image URL</label>
+          <textarea id="blockContent" class="w-full h-32 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all"></textarea>
+        </div>
+
+        <div class="mt-6 flex justify-end gap-2">
+          <button onclick="closeEditor()" class="px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold rounded-lg transition-colors">Cancel</button>
+          <button onclick="saveBlockEdit()" class="px-4 py-2 bg-black hover:bg-orange-600 text-white font-bold rounded-lg transition-colors">Save Changes</button>
+        </div>
+      </div>
+    </div>
+
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+        updateDoc
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBW6_R7rhCMoYze5wqJu6MOsu4R0na1PZk",
+        authDomain: "the-roastery-by-roj.firebaseapp.com",
+        projectId: "the-roastery-by-roj",
+        storageBucket: "the-roastery-by-roj.firebasestorage.app",
+        messagingSenderId: "475681246867",
+        appId: "1:475681246867:web:0e1f6facd4851551a40766",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // Get Product ID from URL
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id');
+      let blocks = [];
+
+      document.body.style.display = "none";
+      onAuthStateChanged(auth, (user) => {
+        if (user && productId) {
+          document.body.style.display = "flex";
+          loadProductData();
+        } else {
+          window.location.href = "login.html";
+        }
+      });
+
+      async function loadProductData() {
+        try {
+          const docRef = doc(db, "products", productId);
+          const docSnap = await getDoc(docRef);
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            document.getElementById('productNameLabel').innerText = `Editing: ${data.name}`;
+            blocks = data.customLayout || [];
+            renderBlocks();
+          } else {
+            alert("Product not found");
+          }
+        } catch(error) {
+          console.error("Error loading product", error);
+        }
+      }
+
+      window.addBlock = (type) => {
+        let content = "";
+        if(type === 'header') content = "New Heading";
+        if(type === 'text') content = "Enter your text description here...";
+        if(type === 'image') content = "https://via.placeholder.com/800x400?text=Image+Placeholder";
+
+        blocks.push({
+          id: 'block_' + Date.now(),
+          type: type,
+          content: content
+        });
+        renderBlocks();
+      };
+
+      window.renderBlocks = () => {
+        const canvas = document.getElementById('canvas');
+        const emptyState = document.getElementById('emptyState');
+        
+        if (blocks.length === 0) {
+            canvas.innerHTML = '';
+            canvas.appendChild(emptyState);
+            emptyState.style.display = 'flex';
+            return;
+        }
+
+        emptyState.style.display = 'none';
+        
+        let html = '';
+        blocks.forEach((block, index) => {
+            let innerHtml = '';
+            if (block.type === 'header') {
+                innerHtml = `<h2 class="text-3xl md:text-5xl font-serif text-[#1c140f] py-4">${block.content}</h2>`;
+            } else if (block.type === 'text') {
+                innerHtml = `<p class="text-gray-600 leading-relaxed font-light">${block.content}</p>`;
+            } else if (block.type === 'image') {
+                innerHtml = `<img src="${block.content}" class="w-full rounded-xl shadow-sm my-4 object-cover" />`;
+            }
+
+            html += `
+            <div class="block-item bg-transparent group p-2 rounded-lg cursor-move" draggable="true" ondragstart="dragStart(event, ${index})" ondragover="dragOver(event)" ondrop="drop(event, ${index})">
+                <div class="block-controls flex">
+                    <button onclick="moveUp(${index})" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-md bg-white">⬆️</button>
+                    <button onclick="moveDown(${index})" class="w-8 h-8 flex items-center justify-center text-gray-500 hover:bg-gray-100 rounded-md bg-white">⬇️</button>
+                    <button onclick="editBlock(${index})" class="w-8 h-8 flex items-center justify-center text-blue-500 hover:bg-blue-50 rounded-md bg-white">✏️</button>
+                    <button onclick="deleteBlock(${index})" class="w-8 h-8 flex items-center justify-center text-red-500 hover:bg-red-50 rounded-md bg-white">🗑️</button>
+                </div>
+                ${innerHtml}
+            </div>
+            `;
+        });
+        
+        canvas.innerHTML = html;
+        canvas.appendChild(emptyState);
+      };
+
+      let dragIndex = null;
+      window.dragStart = (e, index) => {
+        dragIndex = index;
+        e.dataTransfer.effectAllowed = 'move';
+      };
+      
+      window.dragOver = (e) => { e.preventDefault(); };
+      
+      window.drop = (e, dropIndex) => {
+        e.preventDefault();
+        if (dragIndex === null || dragIndex === dropIndex) return;
+        
+        const draggedBlock = blocks[dragIndex];
+        blocks.splice(dragIndex, 1);
+        blocks.splice(dropIndex, 0, draggedBlock);
+        
+        renderBlocks();
+        dragIndex = null;
+      };
+
+      window.moveUp = (index) => {
+        if (index > 0) {
+          const temp = blocks[index];
+          blocks[index] = blocks[index - 1];
+          blocks[index - 1] = temp;
+          renderBlocks();
+        }
+      };
+
+      window.moveDown = (index) => {
+        if (index < blocks.length - 1) {
+          const temp = blocks[index];
+          blocks[index] = blocks[index + 1];
+          blocks[index + 1] = temp;
+          renderBlocks();
+        }
+      };
+
+      window.deleteBlock = (index) => {
+        blocks.splice(index, 1);
+        renderBlocks();
+      };
+
+      window.editBlock = (index) => {
+        document.getElementById('editingIndex').value = index;
+        document.getElementById('blockContent').value = blocks[index].content;
+        document.getElementById('textEditor').style.display = 'flex';
+        document.getElementById('editorModal').style.display = 'flex';
+      };
+
+      window.closeEditor = () => {
+        document.getElementById('editorModal').style.display = 'none';
+      };
+
+      window.saveBlockEdit = () => {
+        const index = document.getElementById('editingIndex').value;
+        const newContent = document.getElementById('blockContent').value;
+        blocks[index].content = newContent;
+        closeEditor();
+        renderBlocks();
+      };
+
+      window.saveLayout = async () => {
+        const btn = document.getElementById('saveBtn');
+        btn.innerText = "Saving...";
+        btn.disabled = true;
+
+        try {
+          const docRef = doc(db, "products", productId);
+          await updateDoc(docRef, { customLayout: blocks });
+          alert("Layout saved successfully!");
+        } catch(error) {
+          console.error("Error saving layout", error);
+          alert("Failed to save layout");
+        } finally {
+          btn.innerText = "Save Layout";
+          btn.disabled = false;
+        }
+      };
+
+    </script>
+  </body>
+</html>

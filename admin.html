@@ -1,0 +1,1239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enterprise Admin - The Roastery By Roj</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Prompt", sans-serif;
+        background-color: #f8fafc;
+      }
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body class="flex h-screen overflow-hidden text-gray-800">
+    <aside
+      class="w-64 bg-white border-r border-gray-200 flex flex-col hidden md:flex z-10 shadow-sm"
+    >
+      <div class="p-6 border-b border-gray-100">
+        <h1 class="text-xl font-bold text-orange-600">
+          The Roastery<br /><span class="text-gray-800 text-sm"
+            >Admin Portal</span
+          >
+        </h1>
+      </div>
+      <nav class="flex-1 p-4 space-y-2">
+        <button
+          onclick="switchTab('dashboard')"
+          id="nav-dashboard"
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-orange-50 text-orange-600 font-bold transition-all"
+        >
+          📊 Dashboard
+        </button>
+        <button
+          onclick="switchTab('products')"
+          id="nav-products"
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-gray-50 font-medium transition-all"
+        >
+          📦 Products & Builder
+        </button>
+        <button
+          onclick="switchTab('orders')"
+          id="nav-orders"
+          class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-500 hover:bg-gray-50 font-medium transition-all"
+        >
+          🛒 Orders
+        </button>
+      </nav>
+      <div class="p-4 border-t border-gray-100">
+        <button
+          onclick="logout()"
+          class="w-full flex items-center justify-center gap-2 px-4 py-2 text-red-500 hover:bg-red-50 rounded-lg font-bold transition-colors"
+        >
+          🚪 Sign Out
+        </button>
+      </div>
+    </aside>
+
+    <main
+      class="flex-1 overflow-y-auto h-full p-6 md:p-10 relative bg-gray-50/50"
+    >
+      <section id="tab-dashboard" class="block animate-fade-in">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h2 class="text-3xl font-bold">Business Overview</h2>
+            <p class="text-sm text-gray-500 mt-1">
+              ข้อมูลเชิงลึกและสถิติแบบ Real-time
+            </p>
+          </div>
+          <button
+            onclick="loadAnalytics()"
+            class="bg-white border border-gray-200 px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-gray-50 flex items-center gap-2"
+          >
+            🔄 Refresh Data
+          </button>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          <div
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 border-l-4 border-l-blue-500"
+          >
+            <h3
+              class="text-xs font-bold text-gray-400 uppercase tracking-wider"
+            >
+              Total Visitors
+            </h3>
+            <p id="stat-visitors" class="text-2xl font-bold mt-1">0</p>
+            <p class="text-[10px] text-gray-400 mt-1">All-time page views</p>
+          </div>
+          <div
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 border-l-4 border-l-orange-500"
+          >
+            <h3
+              class="text-xs font-bold text-gray-400 uppercase tracking-wider"
+            >
+              Most Searched Note
+            </h3>
+            <p id="stat-search" class="text-2xl font-bold mt-1 text-[#1c140f]">
+              N/A
+            </p>
+            <p class="text-[10px] text-gray-400 mt-1">Based on flavor tags</p>
+          </div>
+          <div
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 border-l-4 border-l-purple-500"
+          >
+            <h3
+              class="text-xs font-bold text-gray-400 uppercase tracking-wider"
+            >
+              Pending Orders
+            </h3>
+            <p id="stat-orders" class="text-2xl font-bold mt-1">0</p>
+            <p class="text-[10px] text-yellow-500 font-bold mt-1">
+              Needs fulfillment
+            </p>
+          </div>
+          <div
+            class="bg-white p-5 rounded-2xl shadow-sm border border-gray-100 border-l-4 border-l-red-500"
+          >
+            <h3
+              class="text-xs font-bold text-gray-400 uppercase tracking-wider"
+            >
+              Low Stock Alerts
+            </h3>
+            <p id="stat-lowstock" class="text-2xl font-bold mt-1 text-red-500">
+              0
+            </p>
+            <p class="text-[10px] text-red-400 mt-1">Items &lt; 5 in stock</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div
+            class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 md:col-span-2"
+          >
+            <h3 class="font-bold mb-4">📈 Traffic Overview</h3>
+            <div class="h-64 relative w-full">
+              <canvas id="trafficChart"></canvas>
+            </div>
+          </div>
+          <div
+            class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100"
+          >
+            <h3 class="font-bold mb-4">🎯 Customer Intent</h3>
+            <div class="h-48 relative w-full flex justify-center mt-4">
+              <canvas id="intentChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tab-products" class="hidden animate-fade-in">
+        <div
+          id="productListView"
+          class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 block"
+        >
+          <div
+            class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4"
+          >
+            <h2
+              class="text-xl font-bold text-[#1c140f] flex items-center gap-2"
+            >
+              📦 All Products (<span id="productCount">0</span>)
+            </h2>
+            <div class="flex gap-2">
+              <button
+                onclick="loadProducts()"
+                class="text-sm text-gray-500 hover:text-orange-600 flex items-center gap-1 font-bold bg-gray-50 px-3 py-1.5 rounded-lg transition-colors"
+              >
+                🔄 Refresh
+              </button>
+              <button
+                onclick="showFormView()"
+                class="bg-black text-white px-5 py-2 rounded-lg text-sm font-bold shadow-md hover:bg-orange-600 transition-colors"
+              >
+                + Create New Bean
+              </button>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse min-w-[600px]">
+              <thead>
+                <tr
+                  class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wider"
+                >
+                  <th class="pb-3 font-medium">Image</th>
+                  <th class="pb-3 font-medium">Name & Category</th>
+                  <th class="pb-3 font-medium">Price</th>
+                  <th class="pb-3 font-medium">Status</th>
+                  <th class="pb-3 font-medium text-right">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="productTableBody" class="divide-y divide-gray-50">
+                <tr>
+                  <td colspan="5" class="py-10 text-center text-gray-400">
+                    Loading products...
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div
+          id="productFormView"
+          class="bg-white p-8 md:p-10 rounded-2xl shadow-xl border border-gray-100 hidden max-w-4xl mx-auto mt-4"
+        >
+          <div
+            class="flex justify-between items-center mb-8 border-b border-gray-100 pb-4"
+          >
+            <h2 id="formTitle" class="text-2xl font-bold text-orange-600">
+              📝 Ultimate Product Builder
+            </h2>
+            <button
+              onclick="showListView()"
+              class="text-gray-500 hover:text-gray-800 font-bold text-sm bg-gray-100 hover:bg-gray-200 px-4 py-2 rounded-lg transition-colors flex items-center gap-2"
+            >
+              ← Back to List
+            </button>
+          </div>
+
+          <form id="productForm" class="flex flex-col gap-6">
+            <input type="hidden" id="editId" />
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label
+                  class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                  >Product Name</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  required
+                  class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:bg-white"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                  >Category</label
+                >
+                <select
+                  id="category"
+                  class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:bg-white"
+                >
+                  <option value="Kombucha Series">Kombucha Series</option>
+                  <option value="Experiment Series">Experiment Series</option>
+                  <option value="Selected Yeast">Selected Yeast</option>
+                  <option value="Filter Roast">Filter Roast</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label
+                  class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                  >Price (฿)</label
+                >
+                <input
+                  type="number"
+                  id="price"
+                  required
+                  class="w-full px-4 py-2 bg-gray-50 border border-gray-200 rounded-lg focus:ring-2 focus:ring-orange-500 focus:bg-white"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-bold text-blue-600 mb-1 uppercase"
+                  >📦 Stock</label
+                >
+                <input
+                  type="number"
+                  id="stock"
+                  required
+                  class="w-full px-4 py-2 bg-blue-50 border border-blue-200 rounded-lg focus:ring-2 focus:ring-blue-500 focus:bg-white"
+                  value="10"
+                />
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                  >🎨 Theme Color</label
+                >
+                <div
+                  class="flex items-center gap-2 bg-gray-50 px-2 py-1 border border-gray-200 rounded-lg h-[42px]"
+                >
+                  <input
+                    type="color"
+                    id="themeColor"
+                    value="#8dc63f"
+                    class="w-8 h-8 rounded cursor-pointer border-0 p-0 bg-transparent"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-purple-50/50 p-5 rounded-xl border border-purple-100 shadow-inner"
+            >
+              <div>
+                <label
+                  class="block text-xs font-bold mb-1 uppercase text-purple-600"
+                  >📌 Product Status</label
+                >
+                <select
+                  id="displayStatus"
+                  class="w-full px-3 py-2 border border-purple-200 bg-white rounded-lg font-bold text-purple-700 focus:ring-2 focus:ring-purple-500 text-sm"
+                >
+                  <option value="normal">⚪️ Normal (Show in Slider)</option>
+                  <option value="highlight">🌟 Highlight (Big Cover)</option>
+                  <option value="new">🔥 New Arrival</option>
+                </select>
+              </div>
+              <div>
+                <label
+                  class="block text-xs font-bold mb-1 uppercase text-blue-600"
+                  >👁️ Visibility</label
+                >
+                <select
+                  id="visibility"
+                  class="w-full px-3 py-2 border border-blue-200 bg-white rounded-lg font-bold text-blue-700 focus:ring-2 focus:ring-blue-500 text-sm"
+                >
+                  <option value="publish">🟢 Published (Online)</option>
+                  <option value="draft">🟡 Draft (Hidden)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="bg-green-50/50 p-6 rounded-xl border border-green-100">
+              <h3
+                class="font-bold text-lg mb-4 text-green-800 flex items-center gap-2"
+              >
+                <span>🌱</span> Coffee Specifications
+              </h3>
+              <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div>
+                  <label
+                    class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                    >Origin</label
+                  ><input
+                    type="text"
+                    id="specOrigin"
+                    placeholder="Chiang Rai"
+                    class="w-full px-3 py-2 text-sm border rounded-lg bg-white"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                    >Variety</label
+                  ><input
+                    type="text"
+                    id="specVariety"
+                    placeholder="Cartimor"
+                    class="w-full px-3 py-2 text-sm border rounded-lg bg-white"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                    >Process</label
+                  ><input
+                    type="text"
+                    id="specProcess"
+                    placeholder="Natural"
+                    class="w-full px-3 py-2 text-sm border rounded-lg bg-white"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                    >Altitude</label
+                  ><input
+                    type="text"
+                    id="specAltitude"
+                    placeholder="1,200 m"
+                    class="w-full px-3 py-2 text-sm border rounded-lg bg-white"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                    >Roast Level</label
+                  ><input
+                    type="text"
+                    id="specRoast"
+                    placeholder="Light Roast"
+                    class="w-full px-3 py-2 text-sm border rounded-lg bg-white"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-amber-50/50 p-6 rounded-xl border border-amber-100">
+              <div class="flex justify-between items-center mb-4">
+                <h3
+                  class="font-bold text-lg text-amber-800 flex items-center gap-2"
+                >
+                  <span>📖</span> The Journey
+                </h3>
+                <button
+                  type="button"
+                  onclick="addStep()"
+                  class="text-xs bg-amber-100 text-amber-700 px-3 py-1.5 rounded-lg font-bold hover:bg-amber-200 transition-colors"
+                >
+                  + Add Step
+                </button>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                <div>
+                  <label
+                    class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                    >Story Headline</label
+                  ><input
+                    type="text"
+                    id="storyTitle"
+                    placeholder="Story Headline"
+                    class="w-full px-4 py-2 border rounded-lg bg-white"
+                  />
+                </div>
+                <div>
+                  <label
+                    class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                    >Story Intro</label
+                  ><textarea
+                    id="storyDesc"
+                    rows="2"
+                    placeholder="Description..."
+                    class="w-full px-4 py-2 border rounded-lg text-sm bg-white"
+                  ></textarea>
+                </div>
+              </div>
+              <div
+                id="stepsContainer"
+                class="grid grid-cols-1 md:grid-cols-3 gap-4 border-t border-amber-100 pt-4"
+              ></div>
+            </div>
+
+            <div
+              class="bg-purple-50/40 p-6 rounded-xl border border-purple-100"
+            >
+              <div class="flex justify-between items-center mb-4">
+                <h3
+                  class="font-bold text-lg text-purple-800 flex items-center gap-2"
+                >
+                  <span>👅</span> Tasting Profile
+                </h3>
+                <button
+                  type="button"
+                  onclick="addNote()"
+                  class="text-xs bg-purple-100 text-purple-700 px-3 py-1.5 rounded-lg font-bold hover:bg-purple-200 transition-colors"
+                >
+                  + Add Note
+                </button>
+              </div>
+              <div class="mb-6">
+                <label
+                  class="block text-xs font-bold text-gray-700 mb-1 uppercase"
+                  >Radar Chart Tags (Comma separated)</label
+                >
+                <input
+                  type="text"
+                  id="flavorTags"
+                  placeholder="e.g. Orange, Tropical, Sweet"
+                  class="w-full px-4 py-2 border border-purple-200 rounded-lg bg-white"
+                />
+              </div>
+              <div
+                id="notesContainer"
+                class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 border-t border-purple-100 pt-4"
+              ></div>
+            </div>
+
+            <div>
+              <label
+                class="block text-xs font-bold text-gray-700 mb-2 uppercase"
+                >Product Image</label
+              >
+              <div
+                id="dropZone"
+                class="w-full p-8 border-2 border-dashed border-gray-300 rounded-xl text-center cursor-pointer hover:border-orange-500 hover:bg-orange-50 transition-all flex flex-col items-center justify-center gap-2 bg-gray-50"
+              >
+                <div class="text-4xl mb-1">📸</div>
+                <p class="text-sm text-gray-600 font-bold">Drag & Drop image</p>
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept="image/*"
+                  class="hidden"
+                />
+              </div>
+              <div
+                id="uploadStatus"
+                class="hidden mt-3 p-3 bg-blue-50 text-blue-700 text-sm rounded-lg font-bold flex items-center justify-between"
+              >
+                <span>Uploading... <span id="uploadProgress">0%</span></span>
+              </div>
+              <div
+                id="imagePreviewContainer"
+                class="hidden mt-3 relative max-w-sm mx-auto"
+              >
+                <img
+                  id="imagePreview"
+                  src=""
+                  class="w-full h-48 object-contain rounded-xl border border-gray-200 bg-gray-50 p-2 shadow-sm"
+                />
+                <button
+                  type="button"
+                  id="removeImageBtn"
+                  class="absolute -top-3 -right-3 w-8 h-8 bg-red-500 hover:bg-red-600 text-white rounded-full flex items-center justify-center font-bold shadow-md"
+                >
+                  ×
+                </button>
+              </div>
+              <input
+                type="text"
+                id="imageUrl"
+                required
+                readonly
+                class="hidden"
+              />
+            </div>
+
+            <div
+              id="statusMessage"
+              class="hidden p-3 rounded-lg text-center text-sm font-bold"
+            ></div>
+            <div class="mt-4 flex justify-end border-t pt-6">
+              <button
+                type="submit"
+                id="submitBtn"
+                class="bg-black text-white font-bold px-12 py-4 rounded-xl hover:bg-orange-600 shadow-lg text-sm"
+              >
+                🚀 Save Product
+              </button>
+            </div>
+          </form>
+        </div>
+      </section>
+
+      <section id="tab-orders" class="hidden animate-fade-in">
+        <div class="flex justify-between items-center mb-6">
+          <div>
+            <h2 class="text-3xl font-bold">Order Management</h2>
+            <p class="text-sm text-gray-500 mt-1">
+              จัดการคำสั่งซื้อจากหน้าเว็บ
+            </p>
+          </div>
+          <button
+            onclick="loadOrders()"
+            class="bg-white border border-gray-200 px-4 py-2 rounded-lg text-sm font-bold shadow-sm hover:bg-gray-50 flex items-center gap-2"
+          >
+            🔄 Refresh
+          </button>
+        </div>
+        <div
+          class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto"
+        >
+          <table class="w-full text-left border-collapse min-w-[800px]">
+            <thead>
+              <tr
+                class="border-b border-gray-100 text-xs text-gray-400 uppercase tracking-wider"
+              >
+                <th class="pb-3">Order ID / Date</th>
+                <th class="pb-3">Items</th>
+                <th class="pb-3">Total (฿)</th>
+                <th class="pb-3">Status</th>
+                <th class="pb-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="ordersTableBody" class="divide-y divide-gray-50">
+              <tr>
+                <td colspan="5" class="py-10 text-center text-gray-400">
+                  Loading orders...
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getAuth,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        getDocs,
+        doc,
+        deleteDoc,
+        updateDoc,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import {
+        getStorage,
+        ref,
+        uploadBytesResumable,
+        getDownloadURL,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBW6_R7rhCMoYze5wqJu6MOsu4R0na1PZk",
+        authDomain: "the-roastery-by-roj.firebaseapp.com",
+        projectId: "the-roastery-by-roj",
+        storageBucket: "the-roastery-by-roj.firebasestorage.app",
+        messagingSenderId: "475681246867",
+        appId: "1:475681246867:web:0e1f6facd4851551a40766",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+      const storage = getStorage(app);
+
+      document.body.style.display = "none";
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          document.body.style.display = "flex";
+          switchTab("dashboard"); // โหลดหน้าแรก
+        } else {
+          window.location.href = "login.html";
+        }
+      });
+
+      window.logout = () =>
+        signOut(auth).then(() => (window.location.href = "login.html"));
+
+      // --- TAB & VIEW LOGIC ---
+      window.switchTab = (tabId) => {
+        ["dashboard", "products", "orders"].forEach((id) => {
+          document.getElementById(`tab-${id}`).classList.add("hidden");
+          document
+            .getElementById(`nav-${id}`)
+            .classList.remove("bg-orange-50", "text-orange-600");
+          document.getElementById(`nav-${id}`).classList.add("text-gray-500");
+        });
+        document.getElementById(`tab-${tabId}`).classList.remove("hidden");
+        document
+          .getElementById(`nav-${tabId}`)
+          .classList.add("bg-orange-50", "text-orange-600");
+        document
+          .getElementById(`nav-${tabId}`)
+          .classList.remove("text-gray-500");
+
+        if (tabId === "dashboard") window.loadAnalytics();
+        if (tabId === "products") {
+          showListView();
+          window.loadProducts();
+        }
+        if (tabId === "orders") window.loadOrders();
+      };
+
+      window.showFormView = () => {
+        document.getElementById("productListView").classList.add("hidden");
+        document.getElementById("productFormView").classList.remove("hidden");
+        document.getElementById("formTitle").innerText = "📝 Create New Bean";
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      window.showListView = () => {
+        document.getElementById("productFormView").classList.add("hidden");
+        document.getElementById("productListView").classList.remove("hidden");
+        window.resetForm();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      };
+
+      // --- PRODUCTS LOGIC ---
+      window.productsData = {};
+      window.loadProducts = async () => {
+        const tbody = document.getElementById("productTableBody");
+        const countEl = document.getElementById("productCount");
+        if (!tbody) return;
+        tbody.innerHTML = `<tr><td colspan="5" class="py-10 text-center text-gray-400">กำลังโหลด...</td></tr>`;
+
+        try {
+          const snap = await getDocs(collection(db, "products"));
+          let html = "";
+          let count = 0;
+          let lowStock = 0;
+          window.productsData = {};
+
+          snap.forEach((docSnap) => {
+            const d = docSnap.data();
+            window.productsData[docSnap.id] = d;
+            count++;
+            if ((d.stock || 0) < 5) lowStock++;
+
+            const visBadge =
+              d.visibility === "draft"
+                ? `<span class="bg-gray-200 text-gray-600 px-2 py-1 rounded text-[10px] font-bold">DRAFT</span>`
+                : `<span class="bg-green-100 text-green-700 px-2 py-1 rounded text-[10px] font-bold">PUBLISHED</span>`;
+
+            html += `
+                <tr class="hover:bg-gray-50 transition-colors">
+                    <td class="py-4 w-16">
+                        <div class="w-12 h-12 rounded-lg bg-gray-100 flex items-center justify-center p-1 border border-gray-200" style="background-color: ${d.themeColor || "#ccc"}15">
+                            <img src="${d.imageUrl}" class="w-full h-full object-contain">
+                        </div>
+                    </td>
+                    <td class="py-4">
+                        <p class="font-bold text-[#1c140f] text-sm">${d.name}</p>
+                        <span class="inline-block px-2 py-1 bg-gray-100 text-gray-500 text-[10px] rounded-full uppercase tracking-wider mt-1">${d.category}</span>
+                    </td>
+                    <td class="py-4 font-bold text-orange-600 text-sm">฿${d.price}</td>
+                    <td class="py-4">${visBadge}</td>
+                    <td class="py-4 text-right">
+                        <button onclick="editProduct('${docSnap.id}')" class="px-3 py-1.5 bg-blue-50 text-blue-600 hover:bg-blue-100 rounded text-xs font-bold transition-colors mr-1">Edit</button>
+                        <button onclick="deleteProduct('${docSnap.id}')" class="px-3 py-1.5 bg-red-50 text-red-600 hover:bg-red-100 rounded text-xs font-bold transition-colors">Del</button>
+                    </td>
+                </tr>`;
+          });
+          tbody.innerHTML =
+            html ||
+            `<tr><td colspan="5" class="py-10 text-center text-gray-400">ไม่มีสินค้าในระบบ</td></tr>`;
+          if (countEl) countEl.innerText = count;
+
+          const statLowStock = document.getElementById("stat-lowstock");
+          if (statLowStock) statLowStock.innerText = lowStock;
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+      document
+        .getElementById("productForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById("submitBtn");
+          btn.innerText = "Processing...";
+          btn.disabled = true;
+          const editId = document.getElementById("editId").value;
+
+          const productData = {
+            name: document.getElementById("name").value,
+            category: document.getElementById("category").value,
+            price: Number(document.getElementById("price").value),
+            stock: Number(document.getElementById("stock").value || 10),
+            themeColor:
+              document.getElementById("themeColor").value || "#8dc63f",
+            displayStatus:
+              document.getElementById("displayStatus").value || "normal",
+            visibility:
+              document.getElementById("visibility").value || "publish",
+            imageUrl: document.getElementById("imageUrl").value,
+            specs: {
+              origin: document.getElementById("specOrigin").value,
+              variety: document.getElementById("specVariety").value,
+              process: document.getElementById("specProcess").value,
+              altitude: document.getElementById("specAltitude").value,
+              roastLevel: document.getElementById("specRoast").value,
+            },
+            story: {
+              title: document.getElementById("storyTitle").value,
+              description: document.getElementById("storyDesc").value,
+            },
+            flavorTags: document.getElementById("flavorTags").value,
+            steps: stepsArray,
+            tastingNotes: notesArray,
+            updatedAt: new Date(),
+          };
+
+          try {
+            if (editId) {
+              await updateDoc(doc(db, "products", editId), productData);
+            } else {
+              productData.createdAt = new Date();
+              await addDoc(collection(db, "products"), productData);
+            }
+            window.resetForm();
+            window.loadProducts();
+            window.showListView(); // กลับหน้า Table
+          } catch (err) {
+            alert("Error: " + err.message);
+          } finally {
+            btn.disabled = false;
+            btn.innerText = "🚀 Save Product";
+          }
+        });
+
+      window.editProduct = (id) => {
+        const d = window.productsData[id];
+        window.showFormView(); // เปิดฟอร์ม
+
+        document.getElementById("editId").value = id;
+        document.getElementById("name").value = d.name;
+        document.getElementById("category").value = d.category;
+        document.getElementById("price").value = d.price;
+        document.getElementById("stock").value = d.stock || 10;
+        document.getElementById("themeColor").value = d.themeColor || "#8dc63f";
+        document.getElementById("displayStatus").value =
+          d.displayStatus || "normal";
+        document.getElementById("visibility").value = d.visibility || "publish";
+
+        document.getElementById("imageUrl").value = d.imageUrl || "";
+        if (d.imageUrl) {
+          document.getElementById("imagePreview").src = d.imageUrl;
+          document
+            .getElementById("imagePreviewContainer")
+            .classList.remove("hidden");
+          document.getElementById("dropZone").classList.add("hidden");
+        }
+
+        document.getElementById("specOrigin").value = d.specs?.origin || "";
+        document.getElementById("specVariety").value = d.specs?.variety || "";
+        document.getElementById("specProcess").value = d.specs?.process || "";
+        document.getElementById("specAltitude").value = d.specs?.altitude || "";
+        document.getElementById("specRoast").value = d.specs?.roastLevel || "";
+        document.getElementById("storyTitle").value = d.story?.title || "";
+        document.getElementById("storyDesc").value = d.story?.description || "";
+        document.getElementById("flavorTags").value = d.flavorTags || "";
+
+        stepsArray =
+          d.steps && d.steps.length ? d.steps : [{ title: "", desc: "" }];
+        notesArray =
+          d.tastingNotes && d.tastingNotes.length
+            ? d.tastingNotes
+            : [{ emoji: "", name: "", desc: "" }];
+        renderSteps();
+        renderNotes();
+
+        document.getElementById("formTitle").innerText = "✏️ Edit Product";
+        document.getElementById("submitBtn").innerText = "Update Product";
+      };
+
+      window.deleteProduct = async (id) => {
+        if (confirm("⚠️ คุณแน่ใจหรือไม่ว่าต้องการลบสินค้านี้?")) {
+          await deleteDoc(doc(db, "products", id));
+          window.loadProducts();
+        }
+      };
+
+      window.resetForm = () => {
+        document.getElementById("productForm").reset();
+        document.getElementById("editId").value = "";
+        document.getElementById("imageUrl").value = "";
+        document
+          .getElementById("imagePreviewContainer")
+          .classList.add("hidden");
+        document.getElementById("dropZone").classList.remove("hidden");
+        document.getElementById("fileInput").value = "";
+        document.getElementById("stock").value = "10";
+        document.getElementById("themeColor").value = "#8dc63f";
+        document.getElementById("displayStatus").value = "normal";
+        document.getElementById("visibility").value = "publish";
+
+        stepsArray = [{ title: "", desc: "" }];
+        notesArray = [{ emoji: "", name: "", desc: "" }];
+        renderSteps();
+        renderNotes();
+
+        document.getElementById("submitBtn").innerText = "🚀 Save Product";
+      };
+
+      // --- DYNAMIC ARRAYS (Steps & Notes) ---
+      let stepsArray = [
+        { title: "", desc: "" },
+        { title: "", desc: "" },
+      ];
+      let notesArray = [
+        { emoji: "", name: "", desc: "" },
+        { emoji: "", name: "", desc: "" },
+      ];
+
+      window.renderSteps = () => {
+        const container = document.getElementById("stepsContainer");
+        container.innerHTML = stepsArray
+          .map(
+            (step, i) => `
+          <div class="bg-white p-4 rounded-xl border border-amber-100 shadow-sm relative group">
+            <button type="button" onclick="removeStep(${i})" class="absolute top-2 right-2 text-red-400 hover:text-red-600 hidden group-hover:block font-bold">X</button>
+            <span class="inline-block bg-amber-100 text-amber-700 text-[10px] font-bold px-2 py-1 rounded-full mb-2">0${i + 1}</span>
+            <input type="text" value="${step.title}" oninput="updateStep(${i}, 'title', this.value)" placeholder="Step Title" class="w-full mb-2 px-3 py-1.5 text-sm rounded border" />
+            <textarea rows="2" oninput="updateStep(${i}, 'desc', this.value)" placeholder="Description" class="w-full px-3 py-1.5 text-sm rounded border">${step.desc}</textarea>
+          </div>
+        `,
+          )
+          .join("");
+      };
+
+      window.renderNotes = () => {
+        const container = document.getElementById("notesContainer");
+        container.innerHTML = notesArray
+          .map(
+            (note, i) => `
+          <div class="bg-white p-4 rounded-xl border border-purple-100 shadow-sm relative group flex flex-col gap-2">
+            <button type="button" onclick="removeNote(${i})" class="absolute top-2 right-2 text-red-400 hover:text-red-600 hidden group-hover:block font-bold">X</button>
+            <input type="text" value="${note.emoji}" oninput="updateNote(${i}, 'emoji', this.value)" placeholder="Emoji" class="w-12 px-2 py-1 text-center text-lg rounded border mx-auto" maxlength="2" />
+            <input type="text" value="${note.name}" oninput="updateNote(${i}, 'name', this.value)" placeholder="Flavor" class="w-full px-3 py-1.5 text-sm font-bold rounded border text-center" />
+            <textarea rows="2" oninput="updateNote(${i}, 'desc', this.value)" placeholder="Desc..." class="w-full px-3 py-1.5 text-xs rounded border">${note.desc}</textarea>
+          </div>
+        `,
+          )
+          .join("");
+      };
+
+      window.addStep = () => {
+        stepsArray.push({ title: "", desc: "" });
+        renderSteps();
+      };
+      window.removeStep = (index) => {
+        stepsArray.splice(index, 1);
+        renderSteps();
+      };
+      window.updateStep = (index, key, val) => {
+        stepsArray[index][key] = val;
+      };
+      window.addNote = () => {
+        notesArray.push({ emoji: "", name: "", desc: "" });
+        renderNotes();
+      };
+      window.removeNote = (index) => {
+        notesArray.splice(index, 1);
+        renderNotes();
+      };
+      window.updateNote = (index, key, val) => {
+        notesArray[index][key] = val;
+      };
+
+      // --- IMAGE UPLOAD LOGIC ---
+      const dropZone = document.getElementById("dropZone");
+      const fileInput = document.getElementById("fileInput");
+      const uploadStatus = document.getElementById("uploadStatus");
+      const uploadProgress = document.getElementById("uploadProgress");
+
+      dropZone.addEventListener("click", () => fileInput.click());
+      dropZone.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropZone.classList.add("border-orange-500", "bg-orange-50");
+      });
+      dropZone.addEventListener("dragleave", () =>
+        dropZone.classList.remove("border-orange-500", "bg-orange-50"),
+      );
+      dropZone.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropZone.classList.remove("border-orange-500", "bg-orange-50");
+        if (e.dataTransfer.files.length > 0)
+          handleFileUpload(e.dataTransfer.files[0]);
+      });
+      fileInput.addEventListener("change", (e) => {
+        if (e.target.files.length > 0) handleFileUpload(e.target.files[0]);
+      });
+
+      document
+        .getElementById("removeImageBtn")
+        .addEventListener("click", () => {
+          document.getElementById("imageUrl").value = "";
+          document
+            .getElementById("imagePreviewContainer")
+            .classList.add("hidden");
+          dropZone.classList.remove("hidden");
+          fileInput.value = "";
+        });
+
+      function handleFileUpload(file) {
+        if (!file.type.startsWith("image/")) return alert("Images only please");
+        const storageRef = ref(
+          storage,
+          "images/" + Date.now() + "_" + file.name,
+        );
+        const uploadTask = uploadBytesResumable(storageRef, file);
+        dropZone.classList.add("hidden");
+        uploadStatus.classList.remove("hidden");
+        document.getElementById("submitBtn").disabled = true;
+
+        uploadTask.on(
+          "state_changed",
+          (snap) => {
+            uploadProgress.innerText =
+              Math.round((snap.bytesTransferred / snap.totalBytes) * 100) + "%";
+          },
+          (err) => {
+            alert(err.message);
+            uploadStatus.classList.add("hidden");
+            dropZone.classList.remove("hidden");
+            document.getElementById("submitBtn").disabled = false;
+          },
+          async () => {
+            const url = await getDownloadURL(uploadTask.snapshot.ref);
+            document.getElementById("imageUrl").value = url;
+            document.getElementById("imagePreview").src = url;
+            uploadStatus.classList.add("hidden");
+            document
+              .getElementById("imagePreviewContainer")
+              .classList.remove("hidden");
+            document.getElementById("submitBtn").disabled = false;
+          },
+        );
+      }
+
+      // --- ANALYTICS ---
+      let trafficChartInstance = null;
+      let intentChartInstance = null;
+
+      window.loadAnalytics = async () => {
+        try {
+          let totalViews = 0;
+          let flavorCounts = {};
+          let productsList = [];
+          const productsSnap = await getDocs(collection(db, "products"));
+
+          productsSnap.forEach((doc) => {
+            const data = doc.data();
+            const views = data.views || 0;
+            totalViews += views;
+
+            productsList.push({
+              name: data.name || "Unnamed",
+              views: views,
+              themeColor: data.themeColor || "#ccc",
+            });
+
+            const tags = data.flavorTags
+              ? data.flavorTags.split(",").map((t) => t.trim())
+              : [];
+            let weight = views > 0 ? views : 1;
+            tags.forEach((tag) => {
+              if (tag) {
+                const cleanTag =
+                  tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase();
+                flavorCounts[cleanTag] = (flavorCounts[cleanTag] || 0) + weight;
+              }
+            });
+          });
+
+          let pendingCount = 0;
+          try {
+            const ordersSnap = await getDocs(collection(db, "orders"));
+            ordersSnap.forEach((doc) => {
+              if (doc.data().status === "pending") pendingCount++;
+            });
+          } catch (e) {}
+
+          productsList.sort((a, b) => b.views - a.views);
+          const topProducts = productsList.slice(0, 5);
+
+          document.getElementById("stat-visitors").innerText =
+            totalViews.toLocaleString();
+          document.getElementById("stat-orders").innerText = pendingCount;
+
+          const sortedFlavors = Object.entries(flavorCounts).sort(
+            (a, b) => b[1] - a[1],
+          );
+          document.getElementById("stat-search").innerText =
+            sortedFlavors.length > 0 ? `"${sortedFlavors[0][0]}"` : "N/A";
+
+          const topProductsBody = document.getElementById("topProductsBody");
+          if (topProducts.length > 0) {
+            topProductsBody.innerHTML = topProducts
+              .map(
+                (p) =>
+                  `<tr class="border-b border-gray-50"><td class="py-3 text-sm font-bold flex items-center gap-2"><div class="w-2.5 h-2.5 rounded-full" style="background-color:${p.themeColor}"></div>${p.name}</td><td class="py-3 text-right text-sm text-gray-500 font-bold">${p.views.toLocaleString()}</td></tr>`,
+              )
+              .join("");
+          }
+
+          const keywordContainer = document.getElementById("keywordContainer");
+          if (keywordContainer && sortedFlavors.length > 0) {
+            keywordContainer.innerHTML = sortedFlavors
+              .slice(0, 6)
+              .map(
+                (item) =>
+                  `<span class="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full font-medium border border-gray-200 shadow-sm">${item[0]} (${item[1]})</span>`,
+              )
+              .join("");
+          }
+
+          const trafficCanvas = document.getElementById("trafficChart");
+          const intentCanvas = document.getElementById("intentChart");
+
+          if (trafficCanvas && intentCanvas && typeof Chart !== "undefined") {
+            const baseTraffic = Math.floor(totalViews / 7);
+            const mockDaily = Array.from({ length: 7 }, () =>
+              Math.max(0, baseTraffic + (Math.floor(Math.random() * 50) - 25)),
+            );
+
+            const ctxTraffic = trafficCanvas.getContext("2d");
+            if (trafficChartInstance) trafficChartInstance.destroy();
+            trafficChartInstance = new Chart(ctxTraffic, {
+              type: "line",
+              data: {
+                labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+                datasets: [
+                  {
+                    data: totalViews === 0 ? [0, 0, 0, 0, 0, 0, 0] : mockDaily,
+                    borderColor: "#f97316",
+                    backgroundColor: "rgba(249, 115, 22, 0.1)",
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                  y: { beginAtZero: true },
+                  x: { grid: { display: false } },
+                },
+              },
+            });
+
+            let intentLabels = [],
+              intentData = [],
+              intentColors = [
+                "#f97316",
+                "#8b5cf6",
+                "#10b981",
+                "#3b82f6",
+                "#f43f5e",
+              ];
+            if (sortedFlavors.length > 0) {
+              const top4 = sortedFlavors.slice(0, 4);
+              let othersCount = sortedFlavors
+                .slice(4)
+                .reduce((sum, item) => sum + item[1], 0);
+              intentLabels = top4.map((i) => i[0]);
+              intentData = top4.map((i) => i[1]);
+              if (othersCount > 0) {
+                intentLabels.push("Others");
+                intentData.push(othersCount);
+              }
+            } else {
+              intentLabels = ["No Data"];
+              intentData = [1];
+              intentColors = ["#e5e7eb"];
+            }
+
+            const ctxIntent = intentCanvas.getContext("2d");
+            if (intentChartInstance) intentChartInstance.destroy();
+            intentChartInstance = new Chart(ctxIntent, {
+              type: "doughnut",
+              data: {
+                labels: intentLabels,
+                datasets: [
+                  {
+                    data: intentData,
+                    backgroundColor: intentColors.slice(0, intentLabels.length),
+                    borderWidth: 0,
+                  },
+                ],
+              },
+              options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutout: "70%",
+                plugins: {
+                  legend: {
+                    position: "bottom",
+                    labels: { boxWidth: 10, font: { size: 10 } },
+                  },
+                },
+              },
+            });
+          }
+        } catch (error) {
+          console.error("Error loading analytics data:", error);
+        }
+      };
+
+      // --- ORDERS LOGIC ---
+      window.loadOrders = async () => {
+        const tbody = document.getElementById("ordersTableBody");
+        if (!tbody) return;
+
+        try {
+          const snap = await getDocs(collection(db, "orders"));
+          let orderList = [];
+          snap.forEach((doc) => {
+            orderList.push({ id: doc.id, ...doc.data() });
+          });
+          orderList.sort((a, b) => b.createdAt.toDate() - a.createdAt.toDate());
+
+          let html = "";
+          let pendingCount = 0;
+          orderList.forEach((order) => {
+            if (order.status === "pending") pendingCount++;
+            const dateStr = order.createdAt.toDate().toLocaleString("th-TH");
+            const shortId = order.id.slice(0, 5).toUpperCase();
+
+            let statusBadge = "";
+            let actionsHtml = "";
+            if (order.status === "pending") {
+              statusBadge = `<span class="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-[10px] font-bold">🟡 PENDING</span>`;
+              actionsHtml = `<button onclick="updateOrderStatus('${order.id}', 'paid')" class="px-3 py-1 bg-blue-50 text-blue-600 rounded-lg text-xs font-bold hover:bg-blue-100">Mark Paid</button>`;
+            } else if (order.status === "paid") {
+              statusBadge = `<span class="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[10px] font-bold">🔵 PAID</span>`;
+              actionsHtml = `<button onclick="updateOrderStatus('${order.id}', 'shipped')" class="px-3 py-1 bg-green-50 text-green-600 rounded-lg text-xs font-bold hover:bg-green-100">Ship Order</button>`;
+            } else {
+              statusBadge = `<span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-[10px] font-bold">🟢 SHIPPED</span>`;
+              actionsHtml = `<span class="text-xs text-gray-400 font-bold px-2">Completed</span>`;
+            }
+
+            const itemsHtml = order.items
+              .map(
+                (i) =>
+                  `<span class="text-gray-700 font-medium">${i.quantity}x</span> ${i.name}`,
+              )
+              .join("<br>");
+
+            html += `<tr class="hover:bg-gray-50 border-b border-gray-50"><td class="py-4"><p class="font-bold text-sm">#${shortId}</p><p class="text-[10px] text-gray-500 mt-1">${dateStr}</p></td><td class="py-4 text-xs leading-relaxed">${itemsHtml}</td><td class="py-4 font-bold text-orange-600 text-sm">฿${order.totalPrice.toLocaleString()}</td><td class="py-4">${statusBadge}</td><td class="py-4 text-right flex justify-end">${actionsHtml}</td></tr>`;
+          });
+          tbody.innerHTML =
+            html ||
+            `<tr><td colspan="5" class="py-10 text-center text-gray-400">ยังไม่มีคำสั่งซื้อ ☕️</td></tr>`;
+
+          const statOrders = document.getElementById("stat-orders");
+          if (statOrders) statOrders.innerText = pendingCount;
+        } catch (e) {
+          console.error(e);
+        }
+      };
+
+      window.updateOrderStatus = async (id, status) => {
+        await updateDoc(doc(db, "orders", id), { status: status });
+        window.loadOrders();
+      };
+    </script>
+  </body>
+</html>

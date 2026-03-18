@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Masterclass - The Roastery By Roj</title>
+
+    <link
+      rel="icon"
+      href="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+      type="image/png"
+    />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Prompt:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-cream: #f9f6f0;
+        --coffee-dark: #1c140f;
+        --accent-orange: #d35400;
+      }
+
+      /* Anti-Copy CSS */
+      body {
+        font-family: "Prompt", sans-serif;
+        background-color: var(--bg-cream);
+        color: var(--coffee-dark);
+        overflow-x: hidden;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      input[type="search"] {
+        -webkit-user-select: auto;
+        -ms-user-select: auto;
+        user-select: auto;
+      }
+
+      .font-serif {
+        font-family: "Playfair Display", serif;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(40px);
+        transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .delay-100 {
+        transition-delay: 0.1s;
+      }
+
+      .delay-200 {
+        transition-delay: 0.2s;
+      }
+
+      .img-hover-zoom {
+        overflow: hidden;
+      }
+
+      .img-hover-zoom img {
+        transition: transform 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+      }
+
+      .group:hover .img-hover-zoom img {
+        transform: scale(1.08);
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: var(--bg-cream);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+      }
+
+      /* 🌐 LANGUAGE TOGGLE SYSTEM */
+      body.lang-en .lang-th {
+        display: none !important;
+      }
+
+      body.lang-th .lang-en {
+        display: none !important;
+      }
+
+      input[type="search"]::-webkit-search-cancel-button {
+        cursor: pointer;
+      }
+
+      /* Scroll Down Animation */
+      @keyframes scroll-down {
+        0% {
+          transform: translate(-50%, 0);
+          opacity: 0;
+        }
+        30% {
+          opacity: 1;
+        }
+        60% {
+          transform: translate(-50%, 20px);
+          opacity: 0;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 40px;
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-radius: 12px;
+        z-index: 20;
+      }
+
+      .scroll-indicator::after {
+        content: "";
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        animation: scroll-down 2s infinite;
+      }
+    </style>
+  </head>
+
+  <body class="selection:bg-orange-500 selection:text-white lang-en">
+    <!-- Navbar (Dark Theme Always for Subpages) -->
+    <nav
+      id="navbar"
+      class="fixed w-full z-50 transition-all duration-500 py-4 px-6 md:px-12 bg-black/90 backdrop-blur-md shadow-sm text-white"
+    >
+      <div class="flex justify-between items-center max-w-[1800px] mx-auto">
+        <a href="index.html" class="flex items-center">
+          <img
+            src="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+            alt="The Roastery By Roj"
+            class="h-10 md:h-14 brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
+          />
+        </a>
+        <div
+          class="hidden md:flex items-center gap-12 text-white/90 font-bold tracking-[0.2em] uppercase text-[12px] md:text-sm"
+        >
+          <a href="index.html" class="hover:text-orange-500 transition-colors"
+            ><span class="lang-en">Home</span
+            ><span class="lang-th">หน้าแรก</span></a
+          >
+          <a
+            href="index.html#story"
+            class="hover:text-orange-500 transition-colors"
+            ><span class="lang-en">Story</span
+            ><span class="lang-th">เรื่องราว</span></a
+          >
+          <a
+            href="all_products.html"
+            class="hover:text-orange-500 transition-colors"
+            ><span class="lang-en">Beans</span
+            ><span class="lang-th">เมล็ดกาแฟ</span></a
+          >
+          <a
+            href="coffee_class.html"
+            class="text-orange-500 transition-colors border-b-2 border-orange-500/50 pb-1"
+            ><span class="lang-en">Masterclass</span
+            ><span class="lang-th">คลาสเรียน</span></a
+          >
+        </div>
+
+        <div class="flex items-center gap-4 md:gap-5">
+          <div class="hidden md:flex items-center gap-2 text-black">
+            <a
+              href="https://www.facebook.com/theroasterycr"
+              target="_blank"
+              class="w-6 h-6 bg-white/80 rounded-full flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"
+                />
+              </svg>
+            </a>
+            <a
+              href="https://www.instagram.com/theroasterybyroj"
+              target="_blank"
+              class="w-6 h-6 bg-white/80 rounded-[0.4rem] flex items-center justify-center hover:bg-white hover:scale-105 transition-all"
+            >
+              <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 6.865a5.135 5.135 0 1 0 0 10.27 5.135 5.135 0 0 0 0-10.27zm0 8.468a3.333 3.333 0 1 1 0-6.666 3.333 3.333 0 0 1 0 6.666zm5.338-8.608a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z"
+                />
+              </svg>
+            </a>
+          </div>
+
+          <button
+            onclick="toggleLang()"
+            class="text-[10px] font-bold tracking-widest border border-white/50 px-3 py-1.5 rounded-full hover:bg-white hover:text-black transition-colors ml-2"
+          >
+            <span class="lang-en">THAI</span><span class="lang-th">ENG</span>
+          </button>
+          <button
+            onclick="toggleCart()"
+            class="flex items-center gap-2 text-xs font-bold tracking-[0.1em] uppercase hover:text-orange-500 transition-colors"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              ></path>
+            </svg>
+            <span class="hidden md:inline"
+              ><span class="lang-en">Cart</span
+              ><span class="lang-th">ตะกร้า</span></span
+            >
+            (<span id="cart-count">0</span>)
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header
+      class="relative w-full h-screen bg-black flex flex-col justify-center items-center text-center px-4 overflow-hidden"
+    >
+      <div class="absolute inset-0 z-0 overflow-hidden">
+        <video
+          autoplay
+          loop
+          muted
+          playsinline
+          class="w-full h-full object-cover opacity-50 scale-105"
+        >
+          <source src="images/0313.mp4" type="video/mp4" />
+        </video>
+        <!-- Premium Multi-layered Overlay -->
+        <div
+          class="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/80"
+        ></div>
+        <div class="absolute inset-0 bg-black/30"></div>
+        <div
+          class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,black_100%)] opacity-60"
+        ></div>
+      </div>
+
+      <div class="relative z-10 flex flex-col items-center">
+        <p
+          class="reveal text-orange-500 text-xs md:text-sm font-bold tracking-[0.6em] uppercase mb-8 drop-shadow-md"
+        >
+          Premium Experience
+        </p>
+        <h1
+          class="reveal delay-100 font-serif text-6xl md:text-8xl lg:text-[10rem] text-white mb-10 leading-none drop-shadow-[0_10px_10px_rgba(0,0,0,0.6)]"
+        >
+          Master<br /><em class="font-light text-gray-300 italic"
+            >The Craft.</em
+          >
+        </h1>
+        <p
+          class="reveal delay-200 text-sm md:text-xl text-white font-normal max-w-3xl mx-auto px-4 leading-relaxed drop-shadow-lg tracking-wide"
+        >
+          <span class="lang-en"
+            >Step into the professional world of coffee. From sensory science to
+            advanced roasting, learn the secrets of the masters.</span
+          >
+          <span class="lang-th"
+            >ก้าวเข้าสู่โลกแห่งกาแฟระดับมืออาชีพ
+            ตั้งแต่ศาสตร์การรับรสจนถึงการคั่วระดับสูง
+            เรียนรู้เคล็ดลับจากผู้เชี่ยวชาญ</span
+          >
+        </p>
+      </div>
+    </header>
+
+    <div class="bg-[var(--bg-cream)] relative overflow-hidden">
+      <!-- Background Accents -->
+      <img
+        src="images/ปกข้างบน.jpg"
+        class="absolute -left-64 top-0 h-[800px] opacity-5 -rotate-12 pointer-events-none"
+        alt=""
+      />
+      <img
+        src="images/ปกข้างบน.jpg"
+        class="absolute -right-64 bottom-0 h-[800px] opacity-10 rotate-12 pointer-events-none"
+        alt=""
+      />
+
+      <!-- Classes Collection -->
+      <section class="py-32 px-6 md:px-12 max-w-[1500px] mx-auto relative z-10">
+        <div class="flex flex-col gap-32 md:gap-40">
+          <!-- Barista Class -->
+          <div
+            class="flex flex-col md:flex-row gap-16 md:gap-24 items-center reveal group"
+          >
+            <div
+              class="w-full md:w-1/2 img-hover-zoom rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] aspect-[4/3]"
+            >
+              <img
+                src="images/IMG_4401.jpg"
+                class="w-full h-full object-cover"
+                alt="Barista Class"
+              />
+            </div>
+            <div class="w-full md:w-1/2">
+              <p
+                class="text-orange-600 text-xs md:text-sm font-bold tracking-[0.4em] uppercase mb-4"
+              >
+                Level 01: Extraction
+              </p>
+              <h2
+                class="font-serif text-5xl md:text-7xl mb-6 text-[#1c140f] leading-tight"
+              >
+                Barista<br /><em class="font-light text-gray-600">Class.</em>
+              </h2>
+              <div class="flex flex-wrap gap-4 mb-8">
+                <span
+                  class="bg-orange-100 text-orange-800 text-xs px-4 py-1.5 rounded-full font-bold tracking-wider uppercase"
+                  >฿5,000 / <span class="lang-en">person</span
+                  ><span class="lang-th">คน</span></span
+                >
+                <span
+                  class="bg-gray-200/50 backdrop-blur-sm text-gray-800 text-xs px-4 py-1.5 rounded-full"
+                  ><span class="lang-en">1 Day (9:00 - 17:00)</span
+                  ><span class="lang-th"
+                    >เรียน 1 วัน (9:00 - 17:00 น.)</span
+                  ></span
+                >
+                <span
+                  class="bg-gray-200/50 backdrop-blur-sm text-gray-800 text-xs px-4 py-1.5 rounded-full"
+                  ><span class="lang-en">2-4 People/Course</span
+                  ><span class="lang-th">รับ 2-4 คน/คอร์ส</span></span
+                >
+              </div>
+              <p
+                class="text-gray-800 font-medium leading-relaxed mb-8 text-base md:text-lg"
+              >
+                <span class="lang-en"
+                  >A comprehensive masterclass diving into every dimension of
+                  espresso extraction. From the history of the bean to the
+                  science of the perfect shot and the art of milk
+                  steaming.</span
+                >
+                <span class="lang-th"
+                  >ห้องเรียนเจาะลึกการสกัดกาแฟในทุกมิติ (espresso perfect shot)
+                  เนื้อหาตั้งแต่ประวัติศาสตร์จนถึงเทคนิคการชิม และศิลปะบนฟองนม
+                  เพื่อต่อยอดสู่การทำร้านกาแฟระดับมืออาชีพ</span
+                >
+              </p>
+              <div
+                class="p-6 bg-white/50 backdrop-blur-md border-l-4 border-orange-500 mb-10 rounded-r-2xl shadow-sm"
+              >
+                <p class="text-sm font-medium text-gray-700 italic">
+                  <span class="lang-en"
+                    >"Perfect for beginners aiming for professional standards or
+                    cafe owners looking to refine their service."</span
+                  >
+                  <span class="lang-th"
+                    >"เหมาะสำหรับผู้เริ่มต้นที่ต้องการมาตรฐานระดับโปร
+                    หรือเจ้าของร้านที่ต้องการยกระดับฝีมือ"</span
+                  >
+                </p>
+              </div>
+              <button
+                onclick="bookViaLine('Barista Class', '5,000 บาท/คน')"
+                class="bg-black text-white px-10 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-bold text-xs tracking-[0.2em] uppercase flex items-center gap-4 hover:scale-105 shadow-xl"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg"
+                  class="w-5 h-5 invert"
+                  alt="LINE"
+                />
+                <span class="lang-en">Reserve Your Spot</span
+                ><span class="lang-th">จองคลาสเรียนผ่าน LINE</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Brewing Class -->
+          <div
+            class="flex flex-col md:flex-row-reverse gap-16 md:gap-24 items-center reveal group"
+          >
+            <div
+              class="w-full md:w-1/2 img-hover-zoom rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] aspect-[4/3]"
+            >
+              <img
+                src="images/IMG_30A7048A235D-1.jpeg"
+                class="w-full h-full object-cover"
+                alt="Brewing Class"
+              />
+            </div>
+            <div class="w-full md:w-1/2">
+              <p
+                class="text-orange-600 text-xs md:text-sm font-bold tracking-[0.4em] uppercase mb-4"
+              >
+                Level 01: Slow Bar
+              </p>
+              <h2
+                class="font-serif text-5xl md:text-7xl mb-6 text-[#1c140f] leading-tight"
+              >
+                Brewing<br /><em class="font-light text-gray-600">Class.</em>
+              </h2>
+              <div class="flex flex-wrap gap-4 mb-8">
+                <span
+                  class="bg-orange-100 text-orange-800 text-xs px-4 py-1.5 rounded-full font-bold tracking-wider uppercase"
+                  >฿5,000 / <span class="lang-en">person</span
+                  ><span class="lang-th">คน</span></span
+                >
+                <span
+                  class="bg-gray-200/50 backdrop-blur-sm text-gray-800 text-xs px-4 py-1.5 rounded-full"
+                  ><span class="lang-en">1 Day (9:00 - 17:00)</span
+                  ><span class="lang-th"
+                    >เรียน 1 วัน (9:00 - 17:00 น.)</span
+                  ></span
+                >
+                <span
+                  class="bg-gray-200/50 backdrop-blur-sm text-gray-800 text-xs px-4 py-1.5 rounded-full"
+                  ><span class="lang-en">2-4 People/Course</span
+                  ><span class="lang-th">รับ 2-4 คน/คอร์ส</span></span
+                >
+              </div>
+              <p
+                class="text-gray-800 font-medium leading-relaxed mb-8 text-base md:text-lg"
+              >
+                <span class="lang-en"
+                  >Understand the fundamental science of gravity and extraction.
+                  Master the V60, Kalita, and Siphon while learning to evaluate
+                  and adjust your flavor profile.</span
+                >
+                <span class="lang-th"
+                  >เรียนรู้ปัจจัยและวิทยาศาสตร์เบื้องหลังการชงกาแฟแบบ Filter
+                  ฝึกฝนการใช้ V60, Kalita, และ Siphon
+                  พร้อมพัฒนาทักษะการชิมเพื่อปรับจูนรสชาติให้สมบูรณ์</span
+                >
+              </p>
+              <div
+                class="p-6 bg-white/50 backdrop-blur-md border-l-4 border-orange-500 mb-10 rounded-r-2xl shadow-sm"
+              >
+                <p class="text-sm font-medium text-gray-700 italic">
+                  <span class="lang-en"
+                    >"Designed for home brewers and baristas who want to master
+                    the art of the perfect pour-over."</span
+                  >
+                  <span class="lang-th"
+                    >"ออกแบบมาเพื่อ Home Brewer และ Barista
+                    ที่ต้องการเข้าถึงศาสตร์แห่งการดริปที่แท้จริง"</span
+                  >
+                </p>
+              </div>
+              <button
+                onclick="bookViaLine('Brewing Class', '5,000 บาท/คน')"
+                class="bg-black text-white px-10 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-bold text-xs tracking-[0.2em] uppercase flex items-center gap-4 hover:scale-105 shadow-xl"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg"
+                  class="w-5 h-5 invert"
+                  alt="LINE"
+                />
+                <span class="lang-en">Reserve Your Spot</span
+                ><span class="lang-th">จองคลาสเรียนผ่าน LINE</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Basic Cupping & Sensory Skills -->
+          <div
+            class="flex flex-col md:flex-row gap-16 md:gap-24 items-center reveal group"
+          >
+            <div
+              class="w-full md:w-1/2 img-hover-zoom rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] aspect-[4/3]"
+            >
+              <img
+                src="images/The Roastery Image (1 of 1).jpg"
+                class="w-full h-full object-cover"
+                alt="Cupping Class"
+              />
+            </div>
+            <div class="w-full md:w-1/2">
+              <p
+                class="text-orange-600 text-xs md:text-sm font-bold tracking-[0.4em] uppercase mb-4"
+              >
+                Level 02: Sensory
+              </p>
+              <h2
+                class="font-serif text-5xl md:text-7xl mb-6 text-[#1c140f] leading-tight"
+              >
+                Sensory<br /><em class="font-light text-gray-600">Mastery.</em>
+              </h2>
+              <div class="flex flex-wrap gap-4 mb-8">
+                <span
+                  class="bg-orange-100 text-orange-800 text-xs px-4 py-1.5 rounded-full font-bold tracking-wider uppercase"
+                  >฿5,000 / <span class="lang-en">person</span
+                  ><span class="lang-th">คน</span></span
+                >
+                <span
+                  class="bg-gray-200/50 backdrop-blur-sm text-gray-800 text-xs px-4 py-1.5 rounded-full"
+                  ><span class="lang-en">1 Day (9:00 - 17:00)</span
+                  ><span class="lang-th"
+                    >เรียน 1 วัน (9:00 - 17:00 น.)</span
+                  ></span
+                >
+                <span
+                  class="bg-gray-200/50 backdrop-blur-sm text-gray-800 text-xs px-4 py-1.5 rounded-full"
+                  ><span class="lang-en">6-8 People/Course</span
+                  ><span class="lang-th">รับ 6-8 คน/คอร์ส</span></span
+                >
+              </div>
+              <p
+                class="text-gray-800 font-medium leading-relaxed mb-8 text-base md:text-lg"
+              >
+                <span class="lang-en"
+                  >Unlock your palate. Learn to evaluate coffee quality using
+                  international standards, preparing you for Q-Grader
+                  certifications and professional sourcing.</span
+                >
+                <span class="lang-th"
+                  >ปลดล็อกประสาทสัมผัส เรียนรู้การชิมกาแฟตามหลักสากล
+                  เพื่อประเมินคุณภาพและเตรียมพร้อมสู่การเป็น Q-Grader
+                  หรือนักคัดเลือกเมล็ดกาแฟมืออาชีพ</span
+                >
+              </p>
+              <div
+                class="p-6 bg-white/50 backdrop-blur-md border-l-4 border-orange-500 mb-10 rounded-r-2xl shadow-sm"
+              >
+                <p class="text-sm font-medium text-gray-700 italic">
+                  <span class="lang-en"
+                    >"Advanced evaluation skills for those stepping into the
+                    specialty coffee industry."</span
+                  >
+                  <span class="lang-th"
+                    >"ทักษะการประเมินขั้นสูง
+                    สำหรับผู้ที่ก้าวเข้าสู่อุตสาหกรรมกาแฟพิเศษอย่างจริงจัง"</span
+                  >
+                </p>
+              </div>
+              <button
+                onclick="
+                  bookViaLine(
+                    'Basic Cupping & Sensory Skills (Pre Q-Grader)',
+                    '5,000 บาท/คน',
+                  )
+                "
+                class="bg-black text-white px-10 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-bold text-xs tracking-[0.2em] uppercase flex items-center gap-4 hover:scale-105 shadow-xl"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg"
+                  class="w-5 h-5 invert"
+                  alt="LINE"
+                />
+                <span class="lang-en">Reserve Your Spot</span
+                ><span class="lang-th">จองคลาสเรียนผ่าน LINE</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Coffee Flavorist Introduction -->
+          <div
+            class="flex flex-col md:flex-row-reverse gap-16 md:gap-24 items-center reveal group"
+          >
+            <div
+              class="w-full md:w-1/2 img-hover-zoom rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] aspect-[4/3]"
+            >
+              <img
+                src="images/lab review.jpg"
+                class="w-full h-full object-cover"
+                alt="Flavorist Class"
+              />
+            </div>
+            <div class="w-full md:w-1/2">
+              <p
+                class="text-orange-600 text-xs md:text-sm font-bold tracking-[0.4em] uppercase mb-4"
+              >
+                Level 01: Aroma
+              </p>
+              <h2
+                class="font-serif text-5xl md:text-7xl mb-6 text-[#1c140f] leading-tight"
+              >
+                Flavorist<br /><em class="font-light text-gray-600">Intro.</em>
+              </h2>
+              <div class="flex flex-wrap gap-4 mb-8">
+                <span
+                  class="bg-orange-100 text-orange-800 text-xs px-4 py-1.5 rounded-full font-bold tracking-wider uppercase"
+                  >฿3,000 / <span class="lang-en">person</span
+                  ><span class="lang-th">คน</span></span
+                >
+                <span
+                  class="bg-gray-200/50 backdrop-blur-sm text-gray-800 text-xs px-4 py-1.5 rounded-full"
+                  ><span class="lang-en">Half Day (9:00 - 12:00)</span
+                  ><span class="lang-th"
+                    >เรียนครึ่งวัน (9:00 - 12:00 น.)</span
+                  ></span
+                >
+                <span
+                  class="bg-gray-200/50 backdrop-blur-sm text-gray-800 text-xs px-4 py-1.5 rounded-full"
+                  ><span class="lang-en">6-8 People/Course</span
+                  ><span class="lang-th">รับ 6-8 คน/คอร์ส</span></span
+                >
+              </div>
+              <p
+                class="text-gray-800 font-medium leading-relaxed mb-8 text-base md:text-lg"
+              >
+                <span class="lang-en"
+                  >An olfactory journey. Learn to identify and communicate the
+                  complex aromas of specialty coffee using standardized scent
+                  references.</span
+                >
+                <span class="lang-th"
+                  >การเดินทางผ่านประสาทสัมผัสการรับกลิ่น
+                  เรียนรู้การแยกแยะและบรรยายกลิ่นที่ซับซ้อนในกาแฟพิเศษตามมาตรฐานสากล</span
+                >
+              </p>
+              <div
+                class="p-6 bg-white/50 backdrop-blur-md border-l-4 border-orange-500 mb-10 rounded-r-2xl shadow-sm"
+              >
+                <p class="text-sm font-medium text-gray-700 italic">
+                  <span class="lang-en"
+                    >"The foundation of professional tasting. Beautifully
+                    simple, scientifically profound."</span
+                  >
+                  <span class="lang-th"
+                    >"พื้นฐานของการชิมระดับโปร
+                    เรียบง่ายแต่ลึกซึ้งด้วยหลักการวิทยาศาสตร์"</span
+                  >
+                </p>
+              </div>
+              <button
+                onclick="
+                  bookViaLine('Coffee Flavorist Introduction', '3,000 บาท/คน')
+                "
+                class="bg-black text-white px-10 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-bold text-xs tracking-[0.2em] uppercase flex items-center gap-4 hover:scale-105 shadow-xl"
+              >
+                <img
+                  src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg"
+                  class="w-5 h-5 invert"
+                  alt="LINE"
+                />
+                <span class="lang-en">Reserve Your Spot</span
+                ><span class="lang-th">จองคลาสเรียนผ่าน LINE</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Roasting Coffee -->
+          <div
+            class="flex flex-col md:flex-row gap-16 md:gap-24 items-center reveal group"
+          >
+            <div
+              class="w-full md:w-1/2 img-hover-zoom rounded-3xl overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] aspect-[4/3] bg-black"
+            >
+              <img
+                src="images/P1150704_edited.jpg"
+                class="w-full h-full object-cover opacity-80"
+                alt="Roasting Class"
+              />
+            </div>
+            <div class="w-full md:w-1/2">
+              <p
+                class="text-orange-600 text-xs md:text-sm font-bold tracking-[0.4em] uppercase mb-4"
+              >
+                Level 03: Craft
+              </p>
+              <h2
+                class="font-serif text-5xl md:text-7xl mb-6 text-[#1c140f] leading-tight"
+              >
+                Roasting<br /><em class="font-light text-gray-600">Class.</em>
+              </h2>
+
+              <div class="grid grid-cols-1 gap-6 mb-10">
+                <div
+                  class="bg-white/60 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white flex flex-col sm:flex-row justify-between sm:items-center gap-4 hover:bg-white transition-colors"
+                >
+                  <div>
+                    <h3 class="font-bold text-xl mb-1">Introduction Course</h3>
+                    <p class="text-xs text-gray-500 leading-relaxed">
+                      <span class="lang-en"
+                        >1 Day | Beginners & Micro Roasteries</span
+                      ><span class="lang-th"
+                        >เรียน 1 วัน | ผู้เริ่มต้น & โรงคั่วขนาดเล็ก</span
+                      >
+                    </p>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="bg-orange-100 text-orange-800 text-sm px-4 py-1.5 rounded-full font-bold"
+                      >฿8,500 / <span class="lang-en">person</span
+                      ><span class="lang-th">คน</span></span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="bg-white/60 backdrop-blur-md p-6 rounded-2xl shadow-sm border border-white flex flex-col sm:flex-row justify-between sm:items-center gap-4 hover:bg-white transition-colors"
+                >
+                  <div>
+                    <h3 class="font-bold text-xl mb-1">Professional Course</h3>
+                    <p class="text-xs text-gray-500 leading-relaxed">
+                      <span class="lang-en"
+                        >2 Days | Advanced & Business Owners</span
+                      ><span class="lang-th"
+                        >เรียน 2 วัน | ผู้มีประสบการณ์ & เจ้าของโรงคั่ว</span
+                      >
+                    </p>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="bg-orange-100 text-orange-800 text-sm px-4 py-1.5 rounded-full font-bold"
+                      >฿20,000 / <span class="lang-en">person</span
+                      ><span class="lang-th">คน</span></span
+                    >
+                  </div>
+                </div>
+
+                <p class="text-xs text-gray-500 italic ml-2">
+                  * Extra +5,000 ฿
+                  <span class="lang-en"
+                    >Add 1 day roasting on all batch sizes (9:00 - 17:00, 2-3
+                    people/course)</span
+                  ><span class="lang-th"
+                    >เพิ่ม 1 วันคั่วเครื่องทุก Batch size (9:00 - 17:00 น. รับ
+                    2-3 คน/คอร์ส)</span
+                  >
+                </p>
+              </div>
+
+              <p
+                class="text-gray-800 font-medium leading-relaxed mb-10 text-base md:text-lg"
+              >
+                <span class="lang-en"
+                  >Master the flame. Understand every dimension of roasting to
+                  create unique, complex profiles and evaluate your batches like
+                  a pro.</span
+                >
+                <span class="lang-th"
+                  >ศาสตร์แห่งการคัดสรรและควบคุมเปลวไฟ
+                  เข้าใจทุกมิติของการคั่วกาแฟเพื่อสร้างโปรไฟล์ที่มีเอกลักษณ์และประเมินผลอย่างมืออาชีพ</span
+                >
+              </p>
+              <div class="flex gap-4">
+                <button
+                  onclick="
+                    bookViaLine(
+                      'Roasting - Introduction Course',
+                      '8,500 บาท/คน',
+                    )
+                  "
+                  class="flex-1 bg-black text-white px-4 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-bold text-[10px] md:text-xs tracking-[0.2em] uppercase flex items-center justify-center gap-3 shadow-lg"
+                >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg"
+                    class="w-4 h-4 invert"
+                    alt="LINE"
+                  />
+                  <span class="lang-en">Intro</span
+                  ><span class="lang-th">Intro</span>
+                </button>
+                <button
+                  onclick="
+                    bookViaLine(
+                      'Roasting - Professional Course',
+                      '20,000 บาท/คน',
+                    )
+                  "
+                  class="flex-1 bg-black text-white px-4 py-4 rounded-full hover:bg-orange-600 transition-all duration-300 font-bold text-[10px] md:text-xs tracking-[0.2em] uppercase flex items-center justify-center gap-3 shadow-lg"
+                >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg"
+                    class="w-4 h-4 invert"
+                    alt="LINE"
+                  />
+                  <span class="lang-en">Pro</span
+                  ><span class="lang-th">Pro</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Footer -->
+    <footer
+      class="bg-[var(--bg-cream)] py-24 px-6 md:px-12 border-t border-black/10"
+    >
+      <div
+        class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12"
+      >
+        <div class="md:col-span-2">
+          <img
+            src="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+            alt="The Roastery By Roj"
+            class="h-16 mb-6 opacity-90"
+          />
+          <p
+            class="text-sm text-gray-500 leading-relaxed max-w-sm mb-6 font-light"
+          >
+            Specialty Coffee @Chiang Rai<br /><span class="lang-en"
+              >Since 2009</span
+            ><span class="lang-th">ตั้งแต่ปี 2009</span>
+          </p>
+        </div>
+        <div>
+          <h3
+            class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6"
+          >
+            Visit Us
+          </h3>
+          <p class="text-sm text-gray-600 leading-loose mb-2 font-light">
+            Sanambin Rd, Tambon Rop Wiang,<br />Chiang Rai 57000, Thailand
+          </p>
+          <p class="text-sm text-gray-600 font-light">Tel: +66899280179</p>
+        </div>
+        <div>
+          <h3
+            class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6"
+          >
+            Connect
+          </h3>
+          <div class="flex flex-col gap-4 text-sm font-light text-gray-600">
+            <a
+              href="https://www.facebook.com/theroasterycr"
+              class="hover:text-orange-500 transition-colors"
+              >Facebook</a
+            >
+            <a
+              href="mailto:throastcoffee@gmail.com"
+              class="hover:text-orange-500 transition-colors"
+              >Email</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Cart Overlay/Sidebar identical to root for consistency -->
+    <div
+      id="cart-overlay"
+      onclick="toggleCart()"
+      class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[99] opacity-0 pointer-events-none transition-opacity duration-300"
+    ></div>
+    <div
+      id="cart-sidebar"
+      class="fixed top-0 right-0 w-full max-w-md h-full bg-white z-[100] transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col shadow-2xl"
+    >
+      <div
+        class="p-8 flex justify-between items-center border-b border-gray-100"
+      >
+        <h3 class="font-serif text-2xl">
+          <span class="lang-en">Your Cart</span
+          ><span class="lang-th">ตะกร้าสินค้า</span>
+        </h3>
+        <button
+          onclick="toggleCart()"
+          class="text-gray-400 hover:text-black text-3xl transition-colors"
+        >
+          &times;
+        </button>
+      </div>
+      <div id="cart-items" class="flex-1 p-8 overflow-y-auto bg-gray-50"></div>
+      <div class="p-8 bg-white border-t border-gray-100">
+        <div class="flex justify-between font-serif text-2xl mb-6">
+          <span>Total</span><span id="cart-total">฿0</span>
+        </div>
+        <button
+          onclick="checkout()"
+          class="w-full bg-[#00B900] text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-green-700 transition-colors duration-300 rounded-full flex justify-center items-center gap-2"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 3.938 8.875 9.172 9.585.39.083.921.258 1.054.593.12.298.038.756-.057 1.058l-.348 1.135c-.106.335-.506 1.632 1.43 0 1.935-1.633 10.42-6.14 10.749-11.371z"
+            />
+          </svg>
+          <span class="lang-en">Checkout via LINE</span
+          ><span class="lang-th">สั่งซื้อผ่าน LINE</span>
+        </button>
+      </div>
+    </div>
+
+    <script>
+      // LINE BOOKING LOGIC FOR CLASSES
+      function bookViaLine(className, priceOrDetail) {
+        let inquiryText = `สวัสดีครับ/ค่ะ สนใจสอบถามหรือจองคลาสเรียนครับ ✨\n---------------------------\n📚 คลาส: *${className}*\n💵 รายละเอียด: ${priceOrDetail}\n---------------------------\nรบกวนขอทราบวันว่างและรายละเอียดเพิ่มเติมด้วยครับ ☕️`;
+        let encodedText = encodeURIComponent(inquiryText);
+        let lineId = "@024hpqkw"; // using the same line id as product checkout
+        let lineUrl = `https://line.me/R/oaMessage/${lineId}/?${encodedText}`;
+        window.open(lineUrl, "_blank");
+      }
+    </script>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

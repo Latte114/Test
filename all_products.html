@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Beans - The Roastery By Roj</title>
+    <link
+      rel="icon"
+      href="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+      type="image/png"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Prompt:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --bg-cream: #f9f6f0;
+        --coffee-dark: #1c140f;
+        --accent-orange: #d35400;
+      }
+
+      /* Anti-Copy CSS */
+      body {
+        font-family: "Prompt", sans-serif;
+        background-color: var(--bg-cream);
+        color: var(--coffee-dark);
+        overflow-x: hidden;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .font-serif {
+        font-family: "Playfair Display", serif;
+      }
+
+      /* 🌐 LANGUAGE TOGGLE SYSTEM */
+      body.lang-en .lang-th {
+        display: none !important;
+      }
+      body.lang-th .lang-en {
+        display: none !important;
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-cream);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.8s ease-in-out forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Filter Active State */
+      .filter-btn.active {
+        background-color: var(--coffee-dark);
+        color: white;
+        border-color: var(--coffee-dark);
+      }
+    </style>
+  </head>
+
+  <body class="selection:bg-orange-500 selection:text-white lang-en">
+    <nav
+      id="navbar"
+      class="fixed w-full z-50 transition-all duration-500 py-4 px-6 md:px-12 bg-black/95 text-white shadow-md"
+    >
+      <div class="flex justify-between items-center max-w-[1800px] mx-auto">
+        <a href="index.html" class="flex items-center">
+          <img
+            src="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+            alt="The Roastery By Roj"
+            class="h-10 md:h-14 brightness-0 invert opacity-90 hover:opacity-100 transition-opacity"
+          />
+        </a>
+
+        <div
+          class="hidden lg:flex gap-10 text-xs font-semibold tracking-[0.2em] uppercase items-center"
+        >
+          <a href="index.html" class="hover:text-orange-500 transition-colors"
+            ><span class="lang-en">Back to Home</span
+            ><span class="lang-th">กลับสู่หน้าแรก</span></a
+          >
+          <a
+            href="coffee_class.html"
+            class="hover:text-orange-500 transition-colors"
+            ><span class="lang-en">Masterclass</span
+            ><span class="lang-th">คลาสเรียน</span></a
+          >
+        </div>
+
+        <div class="flex items-center gap-4 md:gap-5">
+          <button
+            onclick="toggleLang()"
+            class="text-[10px] font-bold tracking-widest border border-white/50 px-3 py-1.5 rounded-full hover:bg-white hover:text-black transition-colors ml-2"
+          >
+            <span class="lang-en">THAI</span><span class="lang-th">ENG</span>
+          </button>
+          <button
+            onclick="toggleCart()"
+            class="flex items-center gap-2 text-xs font-bold tracking-[0.1em] uppercase hover:text-orange-500 transition-colors"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
+              ></path>
+            </svg>
+            <span class="hidden md:inline"
+              ><span class="lang-en">Cart</span
+              ><span class="lang-th">ตะกร้า</span></span
+            >
+            (<span id="cart-count">0</span>)
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="pt-32 pb-24 px-6 md:px-12 max-w-[1400px] mx-auto fade-in">
+      <div
+        class="text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase text-gray-400 mb-6"
+      >
+        <a href="index.html" class="hover:text-orange-500">Home</a>
+        <span class="mx-2">/</span>
+        <span class="text-gray-800">All Beans</span>
+      </div>
+
+      <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+        <div>
+          <h1 class="font-serif text-4xl md:text-6xl text-[#1c140f] mb-4">
+            <span class="lang-en">Our Coffee Collection.</span
+            ><span class="lang-th">เมล็ดกาแฟของเรา</span>
+          </h1>
+          <p class="text-sm text-gray-600 font-light max-w-xl">
+            <span class="lang-en"
+              >Explore our range of meticulously processed beans, from
+              experimental kombucha fermentation to classic specialty
+              roasts.</span
+            >
+            <span class="lang-th"
+              >ค้นพบเมล็ดกาแฟที่เราตั้งใจโปรเซสอย่างพิถีพิถัน
+              ตั้งแต่การหมักนวัตกรรมใหม่ ไปจนถึงกาแฟพิเศษคลาสสิก</span
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mb-12 border-b border-gray-200 pb-6">
+        <button
+          onclick="filterProducts('all')"
+          class="filter-btn active px-5 py-2 rounded-full border border-gray-300 text-xs font-bold tracking-wider uppercase transition-colors text-gray-600 hover:border-black hover:text-black"
+        >
+          <span class="lang-en">All Beans</span
+          ><span class="lang-th">ทั้งหมด</span>
+        </button>
+        <button
+          onclick="filterProducts('kombucha')"
+          class="filter-btn px-5 py-2 rounded-full border border-gray-300 text-xs font-bold tracking-wider uppercase transition-colors text-gray-600 hover:border-black hover:text-black"
+        >
+          Kombucha Series
+        </button>
+        <button
+          onclick="filterProducts('yeast')"
+          class="filter-btn px-5 py-2 rounded-full border border-gray-300 text-xs font-bold tracking-wider uppercase transition-colors text-gray-600 hover:border-black hover:text-black"
+        >
+          Yeast Process
+        </button>
+        <button
+          onclick="filterProducts('robusta')"
+          class="filter-btn px-5 py-2 rounded-full border border-gray-300 text-xs font-bold tracking-wider uppercase transition-colors text-gray-600 hover:border-black hover:text-black"
+        >
+          Fine Robusta
+        </button>
+      </div>
+
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+        id="product-grid"
+      >
+        <div
+          class="product-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group cursor-pointer flex flex-col"
+          data-category="kombucha"
+          onclick="window.location.href = 'eden.html'"
+        >
+          <div
+            class="aspect-[4/5] bg-[#F9F6F0] p-8 relative flex justify-center items-center overflow-hidden"
+          >
+            <div
+              class="absolute top-4 left-4 bg-[#F0FAD0] text-[#4A7C35] text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest z-10"
+            >
+              Highlight
+            </div>
+            <img
+              src="images/eden_nobg.jpg"
+              alt="Wonder Eden"
+              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 drop-shadow-xl"
+            />
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <p
+              class="text-[9px] text-gray-400 font-bold tracking-[0.2em] uppercase mb-1"
+            >
+              Kombucha Series
+            </p>
+            <h3 class="font-serif text-2xl mb-2 text-[#2C5220]">Wonder Eden</h3>
+            <p
+              class="text-xs text-gray-500 font-light mb-6 flex-1 line-clamp-2"
+            >
+              <span class="lang-en"
+                >Bright acidity and juicy sweet aftertaste.</span
+              ><span class="lang-th">รสชาติสว่าง หวานฉ่ำเป็นเอกลักษณ์</span>
+            </p>
+            <div
+              class="flex justify-between items-center mt-auto pt-4 border-t border-gray-50"
+            >
+              <span class="font-serif text-xl font-semibold text-gray-900"
+                >฿550</span
+              >
+              <button
+                onclick="
+                  event.stopPropagation();
+                  addToCart('Wonder Eden', 550);
+                "
+                class="bg-black text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase hover:bg-orange-600 transition-colors shadow-md"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="product-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group cursor-pointer flex flex-col"
+          data-category="yeast"
+          onclick="window.location.href = 'red_isac.html'"
+        >
+          <div
+            class="aspect-[4/5] bg-[#Fdf1f1] p-8 relative flex justify-center items-center overflow-hidden"
+          >
+            <div
+              class="absolute top-4 left-4 bg-white text-[#C1272D] text-[9px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-sm z-10"
+            >
+              New
+            </div>
+            <img
+              src="images/red isac_edited.png"
+              alt="Red Isac"
+              class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-700 drop-shadow-xl"
+            />
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <p
+              class="text-[9px] text-[#C1272D] font-bold tracking-[0.2em] uppercase mb-1"
+            >
+              Experiment Series
+            </p>
+            <h3 class="font-serif text-2xl mb-2 text-[#1c140f]">Red Isac</h3>
+            <p
+              class="text-xs text-gray-500 font-light mb-6 flex-1 line-clamp-2"
+            >
+              <span class="lang-en"
+                >Rich mature red apple and sweet cherry.</span
+              ><span class="lang-th">แอปเปิ้ลแดงสุก หวานล้ำลึก</span>
+            </p>
+            <div
+              class="flex justify-between items-center mt-auto pt-4 border-t border-gray-50"
+            >
+              <span class="font-serif text-xl font-semibold text-gray-900"
+                >฿450</span
+              >
+              <button
+                onclick="
+                  event.stopPropagation();
+                  addToCart('Red Isac', 450);
+                "
+                class="bg-black text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase hover:bg-orange-600 transition-colors shadow-md"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="product-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group cursor-pointer flex flex-col"
+          data-category="yeast"
+        >
+          <div
+            class="aspect-[4/5] relative flex justify-center items-center overflow-hidden"
+          >
+            <img
+              src="images/cima2.jpeg"
+              alt="Scientist Series"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <p
+              class="text-[9px] text-orange-600 font-bold tracking-[0.2em] uppercase mb-1"
+            >
+              Selected Yeast
+            </p>
+            <h3 class="font-serif text-2xl mb-2 text-[#1c140f]">
+              Scientist Series
+            </h3>
+            <p
+              class="text-xs text-gray-500 font-light mb-6 flex-1 line-clamp-2"
+            >
+              <span class="lang-en"
+                >Precision fermentation for complex profiles.</span
+              ><span class="lang-th"
+                >หมักด้วยยีสต์คัดสรรเพื่อความซับซ้อนสูงสุด</span
+              >
+            </p>
+            <div
+              class="flex justify-between items-center mt-auto pt-4 border-t border-gray-50"
+            >
+              <span class="font-serif text-xl font-semibold text-gray-900"
+                >฿550</span
+              >
+              <button
+                onclick="
+                  event.stopPropagation();
+                  addToCart('Scientist Series', 550);
+                "
+                class="bg-black text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase hover:bg-orange-600 transition-colors shadow-md"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="product-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group cursor-pointer flex flex-col"
+          data-category="yeast"
+        >
+          <div
+            class="aspect-[4/5] relative flex justify-center items-center overflow-hidden"
+          >
+            <img
+              src="images/yeast.jpeg"
+              alt="Scotlab Yeast"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <p
+              class="text-[9px] text-orange-600 font-bold tracking-[0.2em] uppercase mb-1"
+            >
+              Coffee Yeast
+            </p>
+            <h3 class="font-serif text-2xl mb-2 text-[#1c140f]">
+              Scotlab Yeast
+            </h3>
+            <p
+              class="text-xs text-gray-500 font-light mb-6 flex-1 line-clamp-2"
+            >
+              <span class="lang-en"
+                >Specialty yeast processed for clean, vibrant cups.</span
+              ><span class="lang-th"
+                >คลีนและสว่างด้วยกระบวนการหมักยีสต์พิเศษ</span
+              >
+            </p>
+            <div
+              class="flex justify-between items-center mt-auto pt-4 border-t border-gray-50"
+            >
+              <span class="font-serif text-xl font-semibold text-gray-900"
+                >฿490</span
+              >
+              <button
+                onclick="
+                  event.stopPropagation();
+                  addToCart('Scotlab Yeast', 490);
+                "
+                class="bg-black text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase hover:bg-orange-600 transition-colors shadow-md"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="product-card bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 group cursor-pointer flex flex-col"
+          data-category="robusta"
+        >
+          <div
+            class="aspect-[4/5] relative flex justify-center items-center overflow-hidden"
+          >
+            <img
+              src="images/robusta 1 fruity.jpg"
+              alt="Fine Robusta"
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+            />
+          </div>
+          <div class="p-6 flex flex-col flex-1">
+            <p
+              class="text-[9px] text-orange-600 font-bold tracking-[0.2em] uppercase mb-1"
+            >
+              Natural Wild Yeast
+            </p>
+            <h3 class="font-serif text-2xl mb-2 text-[#1c140f]">
+              Fine Robusta
+            </h3>
+            <p
+              class="text-xs text-gray-500 font-light mb-6 flex-1 line-clamp-2"
+            >
+              <span class="lang-en"
+                >Elevating robusta with wild yeast fermentation.</span
+              ><span class="lang-th"
+                >ยกระดับโรบัสต้าด้วยการหมักยีสต์ธรรมชาติ</span
+              >
+            </p>
+            <div
+              class="flex justify-between items-center mt-auto pt-4 border-t border-gray-50"
+            >
+              <span class="font-serif text-xl font-semibold text-gray-900"
+                >฿390</span
+              >
+              <button
+                onclick="
+                  event.stopPropagation();
+                  addToCart('Fine Robusta', 390);
+                "
+                class="bg-black text-white px-5 py-2 rounded-full text-xs font-bold tracking-wider uppercase hover:bg-orange-600 transition-colors shadow-md"
+              >
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer
+      class="bg-[var(--bg-cream)] py-16 px-6 md:px-12 border-t border-black/10"
+    >
+      <div
+        class="max-w-[1600px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12"
+      >
+        <div class="md:col-span-2">
+          <img
+            src="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+            alt="The Roastery By Roj"
+            class="h-16 mb-6 opacity-90"
+          />
+          <p class="text-sm text-gray-500 leading-relaxed max-w-sm font-light">
+            Specialty Coffee @Chiang Rai<br /><span class="lang-en"
+              >Since 2009</span
+            ><span class="lang-th">ตั้งแต่ปี 2009</span>
+          </p>
+        </div>
+        <div>
+          <h3
+            class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6"
+          >
+            Visit Us
+          </h3>
+          <p class="text-sm text-gray-600 leading-loose mb-2 font-light">
+            Sanambin Rd, Tambon Rop Wiang,<br />Chiang Rai 57000, Thailand
+          </p>
+        </div>
+        <div>
+          <h3
+            class="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6"
+          >
+            Connect
+          </h3>
+          <div class="flex flex-col gap-4 text-sm font-light text-gray-600">
+            <a
+              href="https://www.facebook.com/theroasterycr"
+              class="hover:text-orange-500 transition-colors"
+              >Facebook</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      id="cart-overlay"
+      onclick="toggleCart()"
+      class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[99] opacity-0 pointer-events-none transition-opacity duration-300"
+    ></div>
+    <div
+      id="cart-sidebar"
+      class="fixed top-0 right-0 w-full max-w-md h-full bg-white z-[100] transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col shadow-2xl"
+    >
+      <div
+        class="p-8 flex justify-between items-center border-b border-gray-100"
+      >
+        <h3 class="font-serif text-2xl">
+          <span class="lang-en">Your Cart</span
+          ><span class="lang-th">ตะกร้าสินค้า</span>
+        </h3>
+        <button
+          onclick="toggleCart()"
+          class="text-gray-400 hover:text-black text-3xl transition-colors"
+        >
+          &times;
+        </button>
+      </div>
+      <div id="cart-items" class="flex-1 p-8 overflow-y-auto bg-gray-50"></div>
+      <div class="p-8 bg-white border-t border-gray-100">
+        <div class="flex justify-between font-serif text-2xl mb-6">
+          <span>Total</span><span id="cart-total">฿0</span>
+        </div>
+        <button
+          onclick="checkout()"
+          class="w-full bg-[#00B900] text-white py-4 text-xs font-bold tracking-[0.2em] uppercase hover:bg-green-700 transition-colors duration-300 rounded-full flex justify-center items-center gap-2"
+        >
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M24 10.304c0-5.369-5.383-9.738-12-9.738-6.616 0-12 4.369-12 9.738 0 4.814 3.938 8.875 9.172 9.585.39.083.921.258 1.054.593.12.298.038.756-.057 1.058l-.348 1.135c-.106.335-.506 1.632 1.43 0 1.935-1.633 10.42-6.14 10.749-11.371z"
+            />
+          </svg>
+          <span class="lang-en">Checkout via LINE</span
+          ><span class="lang-th">สั่งซื้อผ่าน LINE</span>
+        </button>
+      </div>
+    </div>
+
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

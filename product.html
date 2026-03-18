@@ -1,0 +1,312 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product - The Roastery</title>
+    <link
+      rel="icon"
+      href="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+      type="image/png"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,700;1,9..144,900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-cream: #f9f6f0;
+        --coffee-dark: #1c140f;
+        --accent-orange: #d35400;
+        --green: #2c5220;
+      }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background-color: var(--bg-cream);
+        color: var(--coffee-dark);
+      }
+      .font-serif {
+        font-family: "Fraunces", serif;
+      }
+      /* NAV */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 600;
+        padding: 12px 52px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        background: rgba(245, 250, 232, 0.93);
+        backdrop-filter: blur(16px);
+        border-bottom: 1.5px solid rgba(182, 224, 42, 0.3);
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+        align-items: center;
+      }
+      .nav-links a {
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: #6b8b50;
+        text-decoration: none;
+        transition: color 0.25s;
+      }
+      .nav-links a:hover {
+        color: var(--green);
+      }
+      .nav-buy {
+        background: var(--green);
+        color: #b6e02a;
+        border: none;
+        cursor: pointer;
+        padding: 11px 28px;
+        border-radius: 100px;
+        font-family: "DM Sans", sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+        transition: all 0.3s;
+        box-shadow: 0 4px 20px rgba(44, 82, 32, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .nav-buy:hover {
+        background: #d0f050;
+        color: var(--green);
+      }
+    </style>
+  </head>
+  <body class="lang-en pt-24 pb-20">
+
+    <nav>
+      <a href="index.html">
+        <img
+          src="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png"
+          alt="Home"
+          style="height: 38px"
+        />
+      </a>
+      <ul class="nav-links hidden md:flex">
+        <li><a href="index.html" class="back-link" style="color:#f07830; font-weight:700;">← Back to Home</a></li>
+        <li><a href="all_products.html"><span class="lang-en">All Products</span></a></li>
+      </ul>
+      <button class="nav-buy" onclick="window.toggleCart()">
+        <span class="lang-en">Cart (<span id="cart-count">0</span>)</span>
+      </button>
+    </nav>
+
+    <!-- LOADING STATE -->
+    <div id="loading" class="min-h-[60vh] flex flex-col items-center justify-center text-gray-500">
+      <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-500 mb-4"></div>
+      <p>Loading Product...</p>
+    </div>
+
+    <!-- ERROR STATE -->
+    <div id="error" class="hidden min-h-[60vh] flex flex-col items-center justify-center text-red-500 font-bold">
+      <p class="text-2xl mb-4">❌ Product Not Found</p>
+      <a href="index.html" class="text-orange-500 underline text-sm">Return Home</a>
+    </div>
+
+    <!-- PRODUCT DISPLAY -->
+    <main id="productDisplay" class="hidden">
+      <!-- Header Banner -->
+      <section class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20 bg-white rounded-3xl p-8 md:p-16 shadow-xl relative overflow-hidden">
+        
+        <div class="relative z-10">
+          <p id="pCategory" class="text-xs font-bold tracking-[0.3em] uppercase text-orange-500 mb-4"></p>
+          <h1 id="pName" class="font-serif text-5xl md:text-7xl font-bold text-[#1c140f] mb-6 leading-tight"></h1>
+          <p class="text-3xl font-serif text-gray-400 mb-10">฿<span id="pPrice"></span></p>
+          
+          <button id="addBtn" class="bg-[#1c140f] text-white px-8 py-4 rounded-full text-xs font-bold tracking-[0.2em] uppercase hover:bg-orange-600 hover:-translate-y-1 transition-all shadow-[0_10px_30px_rgba(28,20,15,0.3)]">
+            Add to Cart
+          </button>
+        </div>
+
+        <div class="relative z-10 flex justify-center h-[300px] md:h-[400px]">
+          <img id="pImage" src="" class="h-full w-full object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.15)] hover:scale-105 transition-transform duration-700" alt="Product">
+        </div>
+
+      </section>
+
+      <!-- Custom Layout Builder Content -->
+      <section class="max-w-4xl mx-auto px-6" id="dynamicContent">
+        <!-- Builder blocks injected here -->
+      </section>
+    </main>
+
+    <!-- Cart Overlay & Script Initialization -->
+    <!-- This requires js/main.js to be included -->
+    
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyBW6_R7rhCMoYze5wqJu6MOsu4R0na1PZk",
+        authDomain: "the-roastery-by-roj.firebaseapp.com",
+        projectId: "the-roastery-by-roj",
+        storageBucket: "the-roastery-by-roj.firebasestorage.app",
+        messagingSenderId: "475681246867",
+        appId: "1:475681246867:web:0e1f6facd4851551a40766",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // Get ID
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('id');
+
+      if (!productId) {
+        document.getElementById('loading').classList.add('hidden');
+        document.getElementById('error').classList.remove('hidden');
+      } else {
+        loadProduct();
+      }
+
+      async function loadProduct() {
+        try {
+          const docRef = doc(db, "products", productId);
+          const docSnap = await getDoc(docRef);
+
+          if (docSnap.exists()) {
+            const data = docSnap.data();
+            
+            // Set Header
+            document.title = data.name + " - The Roastery";
+            document.getElementById('pCategory').innerText = data.category;
+            document.getElementById('pName').innerText = data.name;
+            document.getElementById('pPrice').innerText = data.price;
+            document.getElementById('pImage').src = data.imageUrl;
+            
+            // Setup Add to Cart Button (relies on main.js)
+            document.getElementById('addBtn').onclick = (e) => {
+                if(window.addToCart) {
+                    window.addToCart(data.name, data.price);
+                }
+            };
+
+            // Render Custom Layout
+            const layout = data.customLayout || [];
+            const container = document.getElementById('dynamicContent');
+            
+            if (layout.length === 0) {
+              container.innerHTML = `<div class="text-center py-20 text-gray-400 font-light"><p>Description coming soon.</p></div>`;
+            } else {
+              let html = '<div class="flex flex-col gap-6 py-10">';
+              layout.forEach(block => {
+                if (block.type === 'header') {
+                  html += `<h2 class="text-4xl md:text-5xl font-serif text-[#1c140f] mt-8 mb-4 font-bold leading-tight">${block.content}</h2>`;
+                } else if (block.type === 'text') {
+                  html += `<p class="text-[15px] md:text-base text-gray-600 leading-relaxed font-light whitespace-pre-line">${block.content}</p>`;
+                } else if (block.type === 'image') {
+                  html += `<div class="rounded-3xl overflow-hidden my-6 shadow-xl"><img src="${block.content}" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-700" loading="lazy" /></div>`;
+                }
+              });
+              html += '</div>';
+              container.innerHTML = html;
+            }
+
+            // Show Product
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('productDisplay').classList.remove('hidden');
+
+          } else {
+            // Not found
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('error').classList.remove('hidden');
+          }
+        } catch(error) {
+          console.error("Error fetching product", error);
+          document.getElementById('loading').classList.add('hidden');
+          document.getElementById('error').classList.remove('hidden');
+        }
+      }
+    </script>
+    <script type="module" src="js/main.js"></script>
+    
+    <!-- Include Cart Sidebar from index.html (Simple version) -->
+    <div
+      id="cart-overlay"
+      onclick="toggleCart()"
+      class="fixed inset-0 bg-black/40 backdrop-blur-sm z-[900] opacity-0 pointer-events-none transition-opacity duration-300"
+    ></div>
+
+    <div
+      id="cart-sidebar"
+      class="fixed top-0 right-0 h-full w-[90%] md:w-[400px] bg-[#f9f6f0] z-[1000] transform translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)] shadow-2xl flex flex-col"
+    >
+      <div
+        class="p-6 border-b border-gray-200 flex justify-between items-center bg-white"
+      >
+        <h2 class="font-serif text-2xl font-bold text-[#1c140f]">
+          <span class="lang-en">Your Cart</span
+          ><span class="lang-th">ตะกร้าของคุณ</span>
+        </h2>
+        <button
+          onclick="toggleCart()"
+          class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 text-gray-500 transition-colors"
+        >
+          <svg
+            class="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M6 18L18 6M6 6l12 12"
+            ></path>
+          </svg>
+        </button>
+      </div>
+
+      <div id="cart-items" class="flex-1 overflow-y-auto p-6">
+        <!-- Javascript renders cart here -->
+      </div>
+
+      <div class="p-6 bg-white border-t border-gray-100 shadow-[0_-10px_20px_rgba(0,0,0,0.02)]">
+        <div class="flex justify-between items-center mb-4">
+          <p class="text-sm font-bold text-gray-500 uppercase tracking-wider">
+            <span class="lang-en">Total</span
+            ><span class="lang-th">ยอดรวม</span>
+          </p>
+          <p id="cart-total" class="font-serif text-3xl font-bold text-[#d35400]">
+            ฿0
+          </p>
+        </div>
+        <button
+          onclick="checkout()"
+          class="w-full bg-black text-white font-bold py-4 rounded-xl hover:bg-[#d35400] transition-colors shadow-lg flex justify-center items-center gap-2 uppercase tracking-widest text-xs"
+        >
+          <span>Line Checkout</span>
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M17 8l4 4m0 0l-4 4m4-4H3"
+            ></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Portal - The Roastery By Roj</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Prompt", sans-serif;
+      }
+      /* พื้นหลังแบบมีลูกเล่นให้ดูเป็นแบรนด์กาแฟ */
+      .bg-coffee-pattern {
+        background-color: #f8fafc;
+        background-image:
+          radial-gradient(#d35400 0.5px, transparent 0.5px),
+          radial-gradient(#d35400 0.5px, #f8fafc 0.5px);
+        background-size: 20px 20px;
+        background-position:
+          0 0,
+          10px 10px;
+        background-attachment: fixed;
+        opacity: 0.8;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-coffee-pattern h-screen flex items-center justify-center p-6 relative"
+  >
+    <a
+      href="index.html"
+      class="absolute top-6 left-6 text-gray-500 hover:text-orange-600 transition-colors flex items-center gap-2 font-bold text-sm bg-white px-4 py-2 rounded-full shadow-sm"
+    >
+      &larr; Back to Website
+    </a>
+
+    <div
+      class="max-w-md w-full bg-white p-8 md:p-10 rounded-3xl shadow-2xl border border-gray-100 text-center relative z-10"
+    >
+      <div
+        class="w-20 h-20 bg-orange-50 rounded-2xl flex items-center justify-center mx-auto mb-6 transform rotate-3 shadow-inner"
+      >
+        <svg
+          class="w-10 h-10 text-orange-600 transform -rotate-3"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+          ></path>
+        </svg>
+      </div>
+
+      <h1 class="text-3xl font-bold text-[#1c140f] mb-1">Admin Portal</h1>
+      <p class="text-sm text-gray-500 mb-8 font-light">
+        กรุณากรอกอีเมลและรหัสผ่านเพื่อเข้าสู่ระบบจัดการ
+      </p>
+
+      <form id="loginForm" class="flex flex-col gap-5 text-left">
+        <div>
+          <label
+            class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wider"
+            >Admin Email</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+            >
+              <svg
+                class="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="email"
+              id="email"
+              required
+              placeholder="admin@theroastery.com"
+              class="w-full pl-11 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all outline-none text-sm"
+            />
+          </div>
+        </div>
+
+        <div>
+          <label
+            class="block text-xs font-bold text-gray-700 mb-1.5 uppercase tracking-wider"
+            >Password</label
+          >
+          <div class="relative">
+            <div
+              class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none"
+            >
+              <svg
+                class="w-5 h-5 text-gray-400"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                ></path>
+              </svg>
+            </div>
+            <input
+              type="password"
+              id="password"
+              required
+              placeholder="••••••••"
+              class="w-full pl-11 pr-12 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:bg-white transition-all outline-none text-sm"
+            />
+            <button
+              type="button"
+              onclick="togglePassword()"
+              class="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-orange-600 transition-colors focus:outline-none"
+            >
+              <svg
+                id="eyeIcon"
+                class="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                ></path>
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                ></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          id="loginBtn"
+          class="mt-2 w-full bg-black text-white font-bold py-3.5 rounded-xl hover:bg-orange-600 transition-all shadow-lg hover:shadow-orange-500/30 flex justify-center items-center gap-2"
+        >
+          <span>Sign In Securely</span>
+          <svg
+            class="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            ></path>
+          </svg>
+        </button>
+      </form>
+
+      <div
+        id="errorMessage"
+        class="hidden mt-6 p-4 bg-red-50 text-red-600 border border-red-100 rounded-xl text-sm font-bold flex items-center justify-center gap-2"
+      >
+        <svg
+          class="w-5 h-5"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          ></path>
+        </svg>
+        <span id="errorText">❌ อีเมลหรือรหัสผ่านไม่ถูกต้อง</span>
+      </div>
+
+      <p class="mt-8 text-xs text-gray-400 font-light">
+        Protected by Firebase Authentication
+      </p>
+    </div>
+
+    <script>
+      function togglePassword() {
+        const pwdInput = document.getElementById("password");
+        const eyeIcon = document.getElementById("eyeIcon");
+
+        if (pwdInput.type === "password") {
+          pwdInput.type = "text";
+          eyeIcon.innerHTML = `
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+            `;
+        } else {
+          pwdInput.type = "password";
+          eyeIcon.innerHTML = `
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            `;
+        }
+      }
+    </script>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+      // 🚨 Config ตรงกับระบบหลักของคุณเป๊ะๆ 🚨
+      const firebaseConfig = {
+        apiKey: "AIzaSyBW6_R7rhCMoYze5wqJu6MOsu4R0na1PZk",
+        authDomain: "the-roastery-by-roj.firebaseapp.com",
+        projectId: "the-roastery-by-roj",
+        storageBucket: "the-roastery-by-roj.firebasestorage.app",
+        messagingSenderId: "475681246867",
+        appId: "1:475681246867:web:0e1f6facd4851551a40766",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const btn = document.getElementById("loginBtn");
+          const errorBox = document.getElementById("errorMessage");
+          const errorText = document.getElementById("errorText");
+
+          // เปลี่ยนสถานะปุ่มตอนกำลังโหลด
+          btn.innerHTML = `
+            <svg class="animate-spin -ml-1 mr-3 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
+            Authenticating...
+          `;
+          btn.disabled = true;
+          errorBox.classList.add("hidden");
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            await signInWithEmailAndPassword(auth, email, password);
+            // ล็อกอินสำเร็จ เด้งไปหน้า admin
+            window.location.href = "admin.html";
+          } catch (error) {
+            console.error("Login failed:", error);
+
+            // แสดง Error ตามกรณี
+            if (
+              error.code === "auth/invalid-credential" ||
+              error.code === "auth/user-not-found" ||
+              error.code === "auth/wrong-password"
+            ) {
+              errorText.innerText = "อีเมลหรือรหัสผ่านไม่ถูกต้อง";
+            } else if (error.code === "auth/too-many-requests") {
+              errorText.innerText = "กรอกผิดหลายครั้งเกินไป กรุณารอสักครู่";
+            } else {
+              errorText.innerText = "เกิดข้อผิดพลาด: " + error.message;
+            }
+
+            errorBox.classList.remove("hidden");
+
+            // คืนค่าปุ่มเดิม
+            btn.innerHTML = `
+              <span>Sign In Securely</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+            `;
+            btn.disabled = false;
+          }
+        });
+    </script>
+  </body>
+</html>

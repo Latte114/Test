@@ -1,0 +1,150 @@
+<section id="recommended" class="py-20 px-6 md:px-12 max-w-[1600px] mx-auto">
+    <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+      <div class="max-w-2xl">
+        <h2 class="font-serif text-4xl md:text-5xl mb-4 flex items-center gap-4">
+          <span class="lang-en">Experimental Beans.</span><span class="lang-th">กาแฟทดลองนวัตกรรม</span>
+          <img src="images/NEW_logo_The_Roastery_by_roj__black___1_-removebg-preview.png" class="h-6 opacity-30"
+            alt="" />
+        </h2>
+        <p class="text-sm text-gray-600 font-light leading-relaxed">
+          <span class="lang-en">Discover the secret of fermentation that creates new flavors for
+            Thai coffee.</span>
+          <span class="lang-th">เรียนรู้การสร้างสรรค์กลิ่นรสในกาแฟไทยด้วยนวัตกรรม
+            แนะนำเมล็ดกาแฟไฮไลต์จากทางร้าน</span>
+        </p>
+      </div>
+      <div id="no-results" class="hidden text-red-500 text-sm font-bold mt-4 md:mt-0">
+        ไม่พบสินค้าที่คุณค้นหา / No products found
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12" id="product-grid">
+      <div
+        class="md:col-span-3 group relative rounded-2xl overflow-hidden bg-white shadow-xl border border-gray-100 reveal cursor-pointer product-item transition-all duration-300"
+        data-title="wonder eden kombucha" onclick="window.location.href = 'eden.html'">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <div class="p-10 md:p-16 flex flex-col justify-center">
+            <div
+              class="inline-flex items-center gap-2 bg-[#F0FAD0] px-3 py-1 rounded-full text-[10px] font-bold tracking-[0.2em] text-[#4A7C35] uppercase mb-6 w-max">
+              🌿 Signature Highlight
+            </div>
+            <p class="text-[10px] text-gray-500 font-bold tracking-[0.2em] uppercase mb-2">
+              Kombucha Series
+            </p>
+            <h3 class="font-serif text-4xl md:text-6xl mb-4 text-[#2C5220]">
+              Wonder <em>Eden</em>
+            </h3>
+            <p class="text-sm text-gray-600 font-light mb-8 max-w-md">
+              <span class="lang-en">Our finest Cartimor variety from 1,200 m.a.s.l. processed
+                with selected SCOBY to create bright acidity and juicy sweet
+                aftertaste.</span>
+              <span class="lang-th">เมล็ด Cartimor จากระดับความสูง 1,200 เมตร หมักด้วย SCOBY
+                ให้รสชาติที่สว่างและหวานฉ่ำเป็นเอกลักษณ์</span>
+            </p>
+            <span
+              class="text-xs font-bold tracking-[0.2em] uppercase text-orange-600 group-hover:text-[#4A7C35] transition-colors flex items-center gap-2">
+              <span class="lang-en">Discover Eden Product →</span><span class="lang-th">ดูรายละเอียด Eden →</span>
+            </span>
+          </div>
+          <div
+            class="img-hover-zoom aspect-[4/3] md:aspect-auto bg-[#F9F6F0] flex items-center justify-center p-10 overflow-hidden relative">
+            <img src="images/eden_nobg.jpg"
+              class="w-full max-w-[320px] object-contain drop-shadow-2xl group-hover:scale-105 transition-transform duration-700"
+              alt="Wonder Eden" />
+          </div>
+        </div>
+      </div>
+      
+      <div class="md:col-span-3 product-slider-container">
+        <div class="product-slider">
+          <!-- Red Isac -->
+          <div class="slider-item group reveal product-item transition-all duration-300 cursor-pointer" data-title="red isac kombucha"
+            onclick="window.location.href = 'red_isac.html'">
+            <div
+              class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6 shadow-sm bg-[#Fdf1f1] flex items-center justify-center p-4">
+              <img src="images/red isac_edited.png" class="w-full h-full object-contain" alt="Red Isac" />
+            </div>
+            <p class="text-[10px] text-[#C1272D] font-bold tracking-[0.2em] uppercase mb-2">
+              Experiment Series
+            </p>
+            <h3 class="font-serif text-2xl mb-2 flex justify-between items-center">
+              Red Isac
+              <button onclick="event.stopPropagation(); addToCart('Red Isac', 450)"
+                class="text-sm bg-black text-white px-4 py-1.5 rounded-full hover:bg-orange-600 transition-colors">
+                <span class="lang-en">Add</span><span class="lang-th">หยิบ</span>
+              </button>
+            </h3>
+          </div>
+
+          <!-- Scientist Series -->
+          <div class="slider-item group reveal product-item transition-all duration-300" data-title="scientist series selected yeast">
+            <div class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6 shadow-sm">
+              <img src="images/cima2.jpeg" class="w-full h-full object-cover" alt="Scientist Series" />
+            </div>
+            <p class="text-[10px] text-orange-600 font-bold tracking-[0.2em] uppercase mb-2">
+              Selected Yeast
+            </p>
+            <h3 class="font-serif text-2xl mb-2 flex justify-between items-center">
+              Scientist Series
+              <button onclick="addToCart('Scientist Series', 550)"
+                class="text-sm bg-black text-white px-4 py-1.5 rounded-full hover:bg-orange-600 transition-colors">
+                <span class="lang-en">Add</span><span class="lang-th">หยิบ</span>
+              </button>
+            </h3>
+          </div>
+
+          <!-- Scotlab Yeast -->
+          <div class="slider-item group reveal delay-100 product-item transition-all duration-300" data-title="scotlab yeast coffee">
+            <div class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6 shadow-sm">
+              <img src="images/yeast.jpeg" class="w-full h-full object-cover" alt="Scotlab Yeast" />
+            </div>
+            <p class="text-[10px] text-orange-600 font-bold tracking-[0.2em] uppercase mb-2">
+              Coffee Yeast
+            </p>
+            <h3 class="font-serif text-2xl mb-2 flex justify-between items-center">
+              Scotlab Yeast
+              <button onclick="addToCart('Scotlab Yeast', 490)"
+                class="text-sm bg-black text-white px-4 py-1.5 rounded-full hover:bg-orange-600 transition-colors">
+                <span class="lang-en">Add</span><span class="lang-th">หยิบ</span>
+              </button>
+            </h3>
+          </div>
+
+          <!-- Fine Robusta -->
+          <div class="slider-item group reveal delay-200 product-item transition-all duration-300"
+            data-title="fine robusta natural wild">
+            <div class="img-hover-zoom aspect-[4/5] rounded-xl overflow-hidden relative mb-6 shadow-sm">
+              <img src="images/robusta 1 fruity.jpg" class="w-full h-full object-cover" alt="Fine Robusta" />
+            </div>
+            <p class="text-[10px] text-orange-600 font-bold tracking-[0.2em] uppercase mb-2">
+              Natural Wild Yeast
+            </p>
+            <h3 class="font-serif text-2xl mb-2 flex justify-between items-center">
+              Fine Robusta
+              <button onclick="addToCart('Fine Robusta', 390)"
+                class="text-sm bg-black text-white px-4 py-1.5 rounded-full hover:bg-orange-600 transition-colors">
+                <span class="lang-en">Add</span><span class="lang-th">หยิบ</span>
+              </button>
+            </h3>
+          </div>
+
+          <!-- More Card -->
+          <div class="slider-item flex" onclick="window.location.href='all_products.html'">
+            <div class="more-card w-full shadow-lg">
+              <div class="w-16 h-16 rounded-full bg-orange-100 flex items-center justify-center mb-6">
+                <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+              </div>
+              <h3 class="font-serif text-2xl mb-2">
+                <span class="lang-en">Explore More</span><span class="lang-th">ดูทั้งหมด</span>
+              </h3>
+              <p class="text-sm text-gray-500 font-light underline">
+                <span class="lang-en">View All Products</span><span class="lang-th">ดูสินค้าทั้งหมด</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
